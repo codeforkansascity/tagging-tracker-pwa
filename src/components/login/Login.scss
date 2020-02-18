@@ -1,0 +1,46 @@
+@import './../../assets/styles/flex-rules.scss';
+
+.tagging-tracker__login {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include flex-ver-col;
+}
+
+.tagging-tracker__login-logo {
+    margin-bottom: 2rem;
+}
+
+.tagging-tracker__login-fields {
+    @include flex-ver-col;
+
+    input, img, button {
+        max-width: 300px;
+    }
+
+    input {
+        text-align: center;
+        background-color: #f2f2f2;
+        color: #282828;
+        border-radius: 6px;
+        font-size: 1.5rem;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border: 0;
+    }
+
+    button {
+        background-color: #E5E5E7;
+        font-size: 1.5rem;
+        padding: 0.5rem;
+        border-radius: 6px;
+        width: 100%;
+        color: #282828;
+
+        &:disabled {
+            opacity: 0.6;
+        }
+    }
+}

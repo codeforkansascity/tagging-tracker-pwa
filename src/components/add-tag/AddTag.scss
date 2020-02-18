@@ -1,0 +1,54 @@
+@import './../../assets/styles/flex-rules.scss';
+
+.tagging-tracker__add-tag {
+    position: relative;
+    display: block;
+    padding-left: 0.5rem;
+    padding-top: 0.5rem;
+    width: 100%;
+    height: calc(100vh - 76px); // also a no-no
+
+    &.move-bottom-navbar-down {
+        overflow: hidden auto;
+    }
+
+    #add-tag-file-input {
+        display: none;
+    }
+
+    .tagging-tracker__address-tag {
+        width: 300px;
+        height: 300px;
+        margin: 0.5rem;
+        border: 1px solid #aaa;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover; // this is easier than dealing with meta call
+        float: left; // oof something's wrong with this layout
+
+        // &.portrait {
+        //     background-size: 300px auto;
+        // }
+
+        // &.landscape {
+        //     background-size: auto 300px;
+        // }
+
+        @media screen and (max-width: 500px) {
+            width: 150px;
+            height: 150px;
+
+            &.portrait {
+                background-size: 150px auto;
+            }
+    
+            &.landscape {
+                background-size: auto 150px;
+            }
+        }
+
+        img {
+            display: none;
+        }
+    }
+}

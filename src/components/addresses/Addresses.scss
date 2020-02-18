@@ -1,0 +1,81 @@
+@import './../../assets/styles/flex-rules.scss';
+
+.tagging-tracker__addresses {
+    display: block;
+    overflow: hidden auto;
+    width: 100%;
+}
+
+.tagging-tracker__address {
+    @include flex-hor-row-ali-str;
+    justify-content: flex-start;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #F3F3F5;
+    text-decoration: none;
+    color: #282828;
+
+    h4 {
+        @include flex-left;
+        font-size: 1rem;
+        flex: 1;
+    }
+
+    img {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+}
+
+.tagging-tracker__address-input-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #F9F9F9;
+    padding: 1rem 0;
+    padding-bottom: 0;
+    border-radius: 6px;
+    @include flex-ver-col;
+    font-family: 'Roboto Regular', sans-serif;
+    min-width: 250px;
+    z-index: 2;
+
+    h3 {
+        font-weight: bold;
+    }
+
+    p {
+        margin-top: 0.5rem;
+        text-align: center;
+        font-size: 0.875rem;
+        padding: 0 1rem;
+    }
+
+    input {
+        margin-top: 1rem;
+        width: calc(100% - 2rem);
+    }
+}
+
+.tagging-tracker__address-input-modal-btns {
+    @include flex-hor-row-ali-str;
+    margin-top: 0.5rem;
+    width: 100%;
+    border-top: 1px solid #CECDD0;
+
+    button {
+        color: #1B89FD;
+        background-color: transparent;
+        border: 0;
+        width: 50%;
+        padding: 1rem;
+
+        &:last-of-type {
+            border-left: 1px solid #CECDD0;
+        }
+
+        &:disabled {
+            opacity: 0.6;
+        }
+    }
+}

@@ -1,0 +1,95 @@
+.tagging-tracker__owner-info {
+    width: calc(100% - 2em);
+    border: 1px solid #B3B3B3;
+    margin: 1em;    
+}
+
+.tagging-tracker__owner-info-form {
+    width: 100%;
+
+    .owner-info-form__row {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        width: 100%;
+        
+        span {
+            flex: 0;
+            white-space: nowrap;
+        }
+
+        input {
+            flex: 1;
+            margin-left: 0.25rem;
+
+            &:read-only {
+                background-color: #FEFEFE;
+                opacity: 0.6;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            flex-direction: column;
+            align-items: flex-start;
+
+            input, span {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+
+        &:not(.group) {
+            padding: 0.25rem 0.5rem;
+        }
+
+        &.group {
+            .owner-info-form__sub-row {
+                width: 100%;
+                
+                @media screen and (max-width: 400px) {
+                    flex-direction: column;
+                    align-items: flex-start;
+
+                    input, span {
+                        width: 100%;
+                        margin-left: 0;
+                    }
+
+                    span {
+                        white-space: pre-wrap;
+                    }
+                }
+            }
+        }
+
+        &:nth-of-type(odd) {
+            background-color: #EFEFEF;
+            border-bottom: 1px solid #DBDBDB;
+        }
+
+        &.white {
+            background-color: white;
+        }
+    }
+
+    .owner-info-form__sub-row {
+        padding: 0.25rem 0.5rem;
+
+        input {
+            margin-left: 0;
+            margin-top: 0.125rem;
+            width: 100%;
+            
+            &:read-only {
+                background-color: #FEFEFE;
+                opacity: 0.6;
+            }
+        }
+
+        &:nth-of-type(even) {
+            background-color: #EFEFEF;
+            border-bottom: 1px solid #DBDBDB;
+        }
+    }
+}

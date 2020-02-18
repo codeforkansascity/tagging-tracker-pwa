@@ -1,0 +1,71 @@
+@import './../../assets/styles/flex-rules.scss';
+
+.tagging-tracker__edit-tags {
+    .address__tag-image {
+        position: relative;
+    }
+}
+
+.tagging-tracker__edit-tags-close-btn {
+    position: absolute;
+    top: -0.9rem;
+    right: -0.9rem;
+    width: 1.8rem;
+    height: 1.8rem;
+}
+
+.tagging-tracker__edit-tags-delete-prompt {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #F6F6F8;
+    padding-top: 1rem;
+    border-radius: 10px;
+
+    &.hidden {
+        display: none;
+    }
+
+    p, h4 {
+        text-align: center;
+    }
+
+    h4 {
+        font-weight: bold;
+        font-family: 'Roboto Bold', sans-serif;
+        font-size: 1.125rem;
+    }
+
+    p {
+        font-size: 1rem;
+        font-family: 'Roboto Regular', sans-serif;
+        margin-top: 0.25rem;
+        max-width: 300px; // force wrap
+        padding: 0 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .edit-tags-delete-prompt__delete-btns {
+        @include flex-hor-row-ali-str;
+        justify-content: center;
+        text-transform: uppercase;
+        border-top: 1px solid #9D9D9F;
+
+        button {
+            width: 50%;
+            background-color: transparent;
+            border: 0;
+            padding: 1rem 0;
+        }
+
+        .delete-btns__delete {
+            color: #FE0908;
+        }
+
+        .delete-btns__cancel {
+            color: #1B89FD;
+            border-left: 1px solid #9D9D9F;
+        }
+    }
+}

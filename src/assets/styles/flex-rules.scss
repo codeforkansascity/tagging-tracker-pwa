@@ -1,0 +1,39 @@
+@mixin flex {
+    display: flex;
+}
+
+@mixin flex-ver-col {
+    @include flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+@mixin flex-hor-row-ali-str {
+    @include flex;
+    align-items: stretch;
+}
+
+@mixin flex-center {
+    @include flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-left {
+    @include flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+@mixin flex-left-start {
+    @include flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+@mixin flex-center-start {
+    @include flex;
+    align-items: flex-start;
+    justify-content: center;
+}

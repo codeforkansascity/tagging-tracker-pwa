@@ -1,0 +1,53 @@
+@import './assets/styles/flex-rules.scss';
+
+.tagging-tracker {
+	@include flex-ver-col;
+	align-items: flex-start;
+	justify-content: flex-start;
+	height: 100vh;
+
+	@font-face {
+		font-family: "Roboto Bold";
+		src: url("./assets/fonts/Roboto/Roboto-Bold.ttf");
+	}
+	@font-face {
+		font-family: "Roboto Italic";
+		src: url("./assets/fonts/Roboto/Roboto-Italic.ttf");
+	}
+	@font-face {
+		font-family: "Roboto Medium";
+		src: url("./assets/fonts/Roboto/Roboto-Medium.ttf");
+	}
+	@font-face {
+		font-family: "Roboto Regular";
+		src: url("./assets/fonts/Roboto/Roboto-Regular.ttf");
+	}
+	@font-face {
+		font-family: "Roboto Thin";
+		src: url("./assets/fonts/Roboto/Roboto-Thin.ttf");
+	}
+
+	font-family: "Roboto Regular", sans-serif;
+
+	input {
+		font-family: inherit;
+	}
+}
+
+.tagging-tracker__body {
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-direction: column;
+	flex: 1;
+	width: 100%;
+	max-height: calc(100% - 123px); // TODO: not good set by dynamic css js, useEffect assuming window.innerHeight works
+	overflow: hidden auto;
+
+	// TODO: this is here because of the state management issues with add-tag
+    // and the image preview/relationship with bottomNavbar(what causes actions)
+    // easier to isolate state within component than to travel up/down eg. through App itself
+    &.increase-height {
+        max-height: calc(100% - 54px);
+    }
+}

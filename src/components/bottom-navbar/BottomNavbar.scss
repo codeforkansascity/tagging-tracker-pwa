@@ -1,0 +1,113 @@
+@import './../../assets/styles/flex-rules.scss';
+
+.tagging-tracker__bottom-navbar {
+    // position: fixed; // TODO: fix this layout hack
+    // bottom: 0;
+    // left: 0;
+    
+    @include flex-hor-row-ali-str;
+    flex: 0;
+    background-color: #F9F9F9;
+    border-top: 1px solid #EEEEEE;
+    width: 100%;
+    z-index: 1;
+
+    &.floating-btns {
+        align-items: center;
+        justify-content: center;
+
+        .bottom-navbar__btn:last-of-type {
+            margin-right: 10%;
+        }
+
+        .bottom-navbar__btn:last-of-type {
+            margin-left: 10%;
+        }
+    }
+
+    .bottom-navbar__btn {
+        position: relative;
+        @include flex-hor-row-ali-str;
+        justify-content: center;
+        background-color: transparent;
+        border: 0;
+        text-decoration: none;
+        padding: 1em 2rem;
+        text-decoration: none;
+
+        &.active {
+            border: 1px solid #383838;
+            border-radius: 3px;
+        }
+
+        &:disabled {
+            opacity: 0.6;
+        }
+
+        &.border {
+            border-right: 1px solid #aaa;
+        }
+
+        &.half {
+            width: 50%;
+        }
+
+        &.third {
+            width: calc(100% / 3);
+            padding: 1em 0;
+        }
+        
+        &.quarter {
+            width: 25%;
+            padding: 1em 0;
+        }
+
+        &.toggled {
+            padding: 1em;
+            width: auto;
+        }
+
+        &.caps-blue {
+            span {
+                color: #1B89FD;
+                font-family: 'Roboto Bold', sans-serif;
+                font-weight: bold;
+            }
+        }
+
+        &.small-font {
+            span {
+                font-size: 0.6rem;
+
+                @media screen and (max-width: 400px) {
+                    font-size: 0.5rem;
+                }
+            }
+        }
+
+        img {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 0.5rem;
+        }
+
+        span {
+            @include flex-center;
+            font-family: 'Roboto Bold', sans-serif;
+            font-size: 1rem;
+            color: #383838;
+        }
+        
+        @media screen and (max-width: 500px) {
+            img {
+                width: 0.75rem;
+                height: 0.75rem;
+            }
+
+            span {
+                font-size: 0.75rem;
+                white-space: nowrap;
+            }
+        }
+    }
+}

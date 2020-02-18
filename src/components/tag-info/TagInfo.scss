@@ -1,0 +1,144 @@
+@import './../../assets/styles/flex-rules.scss';
+
+.tagging-tracker__tag-info {
+    width: calc(100% - 2em);
+    border: 1px solid #B3B3B3;
+    margin: 1em;
+
+    .tag-info-field-row {
+        @include flex-hor-row-ali-str;
+        justify-content: flex-start;
+        width: 100%;
+        padding: 0.25rem 0.5rem;
+
+        &:nth-of-type(odd) {
+            background-color: #EFEFEF;
+            border-bottom: 1px solid #DBDBDB;
+        }
+
+        @media screen and (max-width: 400px) {
+            .option-group label {
+                flex: 1;
+            }
+
+            &.box {
+                flex-direction: column;
+            }
+        }
+
+        span {
+            @include flex;
+            flex: 0;
+            white-space: nowrap;
+
+            &.full {
+                flex: none;
+                width: 100%;
+                font-weight: bold;
+            }
+
+            &.option-group-label {
+                flex: none;
+                width: 30%;
+                font-weight: bold;
+
+                @media screen and (max-width: 500px) {
+                    width: 50%;
+                    margin-bottom: 0.25rem;
+                }
+            }
+
+            &.input-label {
+                font-weight: bold;
+
+                @media screen and (max-width: 400px) {
+                    width: 100%;
+                }
+            }
+        }
+
+        .option-group {
+            @include flex-hor-row-ali-str;
+
+            span {
+                @include flex;
+                white-space: nowrap;
+            }
+        }
+
+        input {
+            flex: 1;
+            margin-left: 0.25rem;
+
+                @media screen and (max-width: 400px) {
+                    flex: none;
+                    &.grow {
+                        width: 100%;
+                        margin-top: 0.25rem;
+                        margin-left: 0;
+                    }
+                }
+        }
+
+        input[type=checkbox], input[type=radio] {
+            margin-top: 0;
+        }
+
+        &.checkbox {
+            flex-direction: flex-start;
+            flex-wrap: wrap;
+
+            span.full {
+                width: 100%;
+                flex: none;
+            }
+
+            span {
+                width: 25%;
+                flex: none;
+            }
+
+            .padding-left {
+                @include flex-hor-row-ali-str;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                padding-left: 10%;
+                margin-top: 0.5rem;
+
+                .option-group {
+                    width: 30%;
+                    @include flex-hor-row-ali-str;
+                    justify-content: flex-start;
+
+                    @media screen and (max-width: 500px) {
+                        width: 50%;
+                    }
+
+                    @media screen and (max-width: 400px) {
+                        width: 100%;
+                    }
+
+                    input {
+                        flex: none;
+                    }
+                }
+            }
+        }
+
+        &:not(.checkbox) {
+            .option-group:not(:first-of-type) {
+                margin-left: 2rem;
+
+                @media screen and (max-width: 500px) {
+                    margin-left: 0.5rem;
+                }
+            }
+
+            .option-group {
+                @media screen and (max-width: 500px) {
+                    margin-left: 0.5rem;
+                }
+            }
+        }
+    }
+}

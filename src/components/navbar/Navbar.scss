@@ -1,0 +1,146 @@
+@import './../../assets/styles/flex-rules.scss';
+
+.tagging-tracker__navbar {
+    flex: 0;
+    width: 100%;
+    border-bottom: 1px solid #E1E1E3;
+    background-color: #fafafa;
+
+    input {
+        display: block;
+        width: calc(100% - 2rem);
+        margin-left: 1rem;
+        margin-bottom: 1rem;
+        margin-top: 0.5rem;
+        background-color: #e2e2e2;
+        border: 0;
+        padding: 0.5rem 2rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        background-image: url('./../../assets/icons/svgs/search-gray.svg');
+        background-size: auto 1rem;
+        background-position: 0.5rem;
+        background-repeat: no-repeat;
+    }
+
+    .navbar-top__settings {
+        position: relative;
+        flex: 0;
+
+        button.gear-icon {
+            border: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            background-image: url('./../../assets/icons/svgs/black-gear.svg');
+            background-size: contain;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-color: transparent;
+        }
+    }
+
+    .navbar-top__settings-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: auto;
+        max-width: 200px;
+        display: block;
+        overflow: hidden auto;
+
+        button {
+            white-space: nowrap;
+        }
+    }
+}
+
+.tagging-tracker__navbar-top {
+    padding: 1rem;
+}
+
+.tagging-tracker__navbar-top.addresses {
+    @include flex-hor-row-ali-str;
+    button.add {
+        width: 1.5rem;
+        height: 1.5rem;
+        background-color: transparent;
+        background-image: url('./../../assets/icons/svgs/plus-blue.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        border: 0;
+    }
+
+    h2 {
+        flex: 1;
+        font-family: 'Roboto Bold', sans-serif;
+        font-weight: bold;
+        font-size: 1.5rem;
+        text-align: center;
+        padding-right: 1.5rem; // offsets left image
+    }
+}
+
+.tagging-tracker__navbar-top.view-address {
+    position: relative;
+    @include flex-hor-row-ali-str;
+    justify-content: space-between;
+
+    @media screen and (max-width: 500px) {
+        display: block;
+    }
+
+    .manage-address__back {
+        @include flex-hor-row-ali-str;
+        text-decoration: none;
+        flex: 1;
+
+        h4 {
+            @include flex-center;
+            color: #1B89FD;
+            font-size: 1rem;
+        }
+
+        img {
+            transform: rotate(180deg);
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        @media screen and (max-width: 500px) {
+            width: 100%;
+        }
+    }
+
+    .manage-address__name {
+        @include flex-center;
+        flex: 4;
+        text-align: center;
+        font-family: 'Roboto Bold', sans-serif;
+        font-weight: bold;
+
+        @media screen and (max-width: 500px) {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+    }
+
+    .manage-address__edit-cancel {
+        @include flex-center;
+        flex: 1;
+        text-align: right;
+        text-decoration: none;
+        text-transform: uppercase;
+        color: #1B89FD;
+        background-color: transparent;
+        border: 0;
+        font-size: 1rem;
+
+        @media screen and (max-width: 500px) {
+            position: absolute; // this is funky responsive to fit the content
+            top: 1.125rem;
+            right: 1rem;
+            width: auto;
+        }
+    }
+}
