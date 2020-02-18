@@ -55,6 +55,9 @@ Clone this repo, `cd` into it and then run `npm install`
 Once installed, you can run the app with `npm start`
 
 ### Deployment
+You will need to build the static files with `npm run build` and then deploy these to some static location. You need https for the PWA to work/be installable.
+
+### Client-side usage/installation
 Note that you can't add to homescreen from incognito. Also for iOS only Safari can add to home screen.
 
 ### Work in progress
