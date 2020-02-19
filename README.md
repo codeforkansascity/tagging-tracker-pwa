@@ -46,12 +46,16 @@ The database is started/schema set in `App.js`
 
 ### Dev Requirements
 This app is based on `create-react-app` so all you need to run it is `node`, `npm` and `npx`.
+
 Note if you're using Ubuntu/linux you may see an issue about file system watchers, check [this link](https://github.com/facebook/jest/issues/3254#issuecomment-297214395) out
+
 Note the `.env.example` if you're developing locally then the `REACT_APP_API_BASE_LOCAL` will probably be `localhost:5000` or whatever you choose. The remote API is only needed for login/syncing content.
+
 `REACT_APP_BASE` is more for deployment, the purpose of this variable is for checking that the remote side where the PWA static files will be deployed is not empty/the PWA does not sync with nothing when the PWA cache is cleared.
 
 ### Installation
 Clone this repo, `cd` into it and then run `npm install`
+
 Once installed, you can run the app with `npm start`
 
 ### Deployment

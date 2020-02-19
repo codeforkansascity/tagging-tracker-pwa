@@ -1,4 +1,12 @@
-## Functionality
+### Fixing Safari
+- [x] add Safari detecting through `navigator.userAgent` parsing
+- [x] address height/bottom navbar, uses `window.innerHeight`
+- [x] address collapsing buttons in bottom navbar, addressed by `iOS` class and not using `flex: 0;`
+- [ ] look into weird alignment of add tag buttons in bottom navbar
+- [ ] file input doesn't trigger camera/file manager
+
+
+### Functionality
 - [ ] Safari issues most notably: file input and CSS problems eg. height cut off by bottom navbar/alignment(flex)
 - [ ] cancelling camera upload process leaves button not clickable/state not updated
 - [ ] automatic cache clearing vs. manual "Software Update" gear icon
@@ -54,3 +62,6 @@ Unfortunately there are quite a few problems visually
 - [ ] dynamic proxy based on environment, may be tied to build script altready in `package.json`
 - [ ] the mockup didn't show other options for address like state/zip so I guess it's just for KC?
 - [ ] better way with dealing collapsing height due to device soft keyboard
+
+### Good pratice
+- [ ] don't develop on live url

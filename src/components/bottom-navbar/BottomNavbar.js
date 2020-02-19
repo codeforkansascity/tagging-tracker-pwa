@@ -9,6 +9,7 @@ import textDocument from './../../assets/icons/svgs/text-document.svg';
 import addSquare from './../../assets/icons/svgs/add-square.svg';
 import ajaxLoaderGray from './../../assets/gifs/ajax-loader--gray.gif';
 import { syncUserData, deleteLocalData } from '../../utils/sync/sync';
+import { checkIOS } from '../../utils/deviceCheckIOS';
 
 const BottomNavbar = (props) => {
     const syncBtn = useRef(null);
@@ -208,6 +209,11 @@ const BottomNavbar = (props) => {
 
         return "tagging-tracker__bottom-navbar";
     }
+
+    useEffect(() => {
+		// this modifies the layout/some css classes/styles based on if the user is using iOS/Safari
+		checkIOS();
+    });
 
     return(
         <div className={ getBottomNavbarClasses() }>

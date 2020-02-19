@@ -6,11 +6,14 @@
     // left: 0;
     
     @include flex-hor-row-ali-str;
-    flex: 0;
     background-color: #F9F9F9;
     border-top: 1px solid #EEEEEE;
     width: 100%;
     z-index: 1;
+
+    &:not(.iOS) {
+        flex: 0;
+    }
 
     &.floating-btns {
         align-items: center;
