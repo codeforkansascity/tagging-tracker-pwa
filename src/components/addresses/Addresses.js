@@ -185,21 +185,15 @@ const Addresses = (props) => {
         if (recentAddresses) {
             setAddAddressProcessing(false);
         }
-    });
-
-    useEffect(() => {
-        if (props.offlineStorage) {
-            loadRecentAddresses();
-        }
-    }, [props.offlineStorage]);
+    }, [props, recentAddresses]);
 
     useEffect(() => {
         if (props.searchedAddress.length) {
             searchAddresses(props.searchedAddress);
-        } else {
-            loadRecentAddresses();
+        } else if (props.offlineStorage) {
+            loadRecentAddresses(); // TODO unmounted state issue
         }
-    }, [props.searchedAddress]);
+    });
 
     return(
         <div className="tagging-tracker__addresses">

@@ -56,8 +56,7 @@ const OwnerInfo = (props) => {
             updateDone = false;
         
             offlineStorage.transaction('rw', offlineStorage.ownerInfo, async() => {
-                let newRowId;
-    
+ 
                 if (
                     await offlineStorage.ownerInfo.put({
                         addressId: ownerInfoValues.addressId,
@@ -71,8 +70,7 @@ const OwnerInfo = (props) => {
                             needFollowUp: ownerInfoValues.formData.needFollowUp,
                             buildingSurveyQuestionAnswer: ownerInfoValues.formData.buildingSurveyQuestionAnswer
                         }
-                    }, ownerInfoValues.addressId).then((insertedId) => {
-                        newRowId = insertedId;
+                    }, ownerInfoValues.addressId).then(() => {
                         return true;
                     })
                 ) {
@@ -85,20 +83,6 @@ const OwnerInfo = (props) => {
             .catch(e => {
                 alert('Failed to update owner information');
                 console.log('owner info', e);
-            });
-        }
-    }
-
-    const getOwnerInfo = async () => {
-        const addressId = props.location.state.addressId;
-        const offlineStorage = props.offlineStorage;
-
-        if (addressId && offlineStorage) {
-            await offlineStorage.ownerInfo.get(addressId, (ownerInfo) => {
-                setOwnerInfo(ownerInfo);
-            }).catch (function (err) {
-                // handle this failure correctly
-                alert('failed to open local storage');
             });
         }
     }
@@ -131,8 +115,23 @@ const OwnerInfo = (props) => {
     }
 
     useEffect(() => {
+        // TODO again this code shouldn't be here but eslint
+        const getOwnerInfo = async () => {
+            const addressId = props.location.state.addressId;
+            const offlineStorage = props.offlineStorage;
+    
+            if (addressId && offlineStorage) {
+                await offlineStorage.ownerInfo.get(addressId, (ownerInfo) => {
+                    setOwnerInfo(ownerInfo);
+                }).catch (function (err) {
+                    // handle this failure correctly
+                    alert('failed to open local storage');
+                });
+            }
+        }
+
         getOwnerInfo();
-    }, [ownerInfo]);
+    }, [props, ownerInfo]);
 
     // TODO: fix the communication between navbar save and saving here so saving isn't based on onblur
     // eg. get all fields at once one time, not every time you change inputs

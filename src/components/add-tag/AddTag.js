@@ -1,8 +1,6 @@
-import React, { useRef, useState, useEffect, createRef } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useRef, useState, useEffect } from 'react';
 import './AddTag.scss';
 import BottomNavbar from './../../components/bottom-navbar/BottomNavbar';
-import { getImagePreviewAspectRatioClass } from './../../utils/image';
 import axios from 'axios';
 
 /**
@@ -21,7 +19,6 @@ const AddTag = (props) => {
     const [fileUpload, triggerFileUpload] = useState(false);
     const [loadedPhotos, setLoadedPhotos] = useState([]);
     const [savingToDevice, setSavingToDevice] = useState(false);
-    const history = useHistory();
 
     // https://hacks.mozilla.org/2011/01/how-to-develop-a-html5-image-uploader/
     const scaleImage = (resolve, img) => {
@@ -115,12 +112,12 @@ const AddTag = (props) => {
         const baseApiPath = window.location.href.indexOf('localhost') !== -1
             ? process.env.REACT_APP_API_BASE_LOCAL
             : process.env.REACT_APP_API_BASE;
-		const postUrl = baseApiPath + '/upload-tag';
+        const postUrl = baseApiPath + '/upload-tag';
         
-		axios.post(postUrl, {
+        axios.post(postUrl, {
             headers: { Authorization: `Bearer ${props.token}` },
             images: loadedPhotos
-		}).then((res) => {
+        }).then((res) => {
             if (res.status === 200) {
                 saveToDevice(); // because don't want to bridge remote sync from upload here
             } else {
@@ -132,17 +129,17 @@ const AddTag = (props) => {
                 }
             }
             triggerFileUpload(false);
-		})
-		.catch((err) => {
-            if (typeof err.response !== "undefined" && typeof err.response.status !== "undefined" && typeof err.response.status === 403) {
+        })
+        .catch((err) => {
+            if (typeof err.response !== "undefined" && typeof err.response.status !== "undefined" && err.response.status === 403) {
                 alert('You have been logged out, please log back in to upload.');
                 window.location.href = "/login"; // flush app state
             } else {
                 console.log('upload err', err);
                 triggerFileUpload(false);
             }
-		});
-	}
+        });
+    }
 
     // Step 2: when file input changes, check if file/photo selected
     const cameraCallback = (fileInput) => {
@@ -181,7 +178,7 @@ const AddTag = (props) => {
                 <div style={{
                     backgroundImage: 'url(' + loadedPhoto.src + ')'
                 }} key={index} className="tagging-tracker__address-tag" >
-                    <img src={loadedPhoto.src} onLoad={ (e) => setLoadedImageMeta(e.target, index) } />
+                    <img alt={ loadedPhoto.meta.name } src={loadedPhoto.src} onLoad={ (e) => setLoadedImageMeta(e.target, index) } />
                 </div>
             )
         })
@@ -192,7 +189,7 @@ const AddTag = (props) => {
     // the image that loads has the width/height
     const setLoadedImageMeta = (loadedImage, loopIndex) => {
         const loadedPhotosClone = loadedPhotos;
-		loadedPhotos.filter((loadedPhoto, index) => {
+		loadedPhotos.filter((loadedPhoto, index) => { // eslint-disable-line
             if (loopIndex === index && typeof loadedPhotos[index].meta.width === "undefined") {
                 loadedPhotosClone[index].meta['width'] = loadedImage.width;
                 loadedPhotosClone[index].meta['height'] = loadedImage.height;
@@ -218,15 +215,13 @@ const AddTag = (props) => {
     useEffect(() => {
         if (fileUpload) {
             uploadImages();
-        } else {
-            triggerFileUpload(false);
         }
-    }, [fileUpload]);
+    });
 
     // TODO this is not staying eg. ugly flash
     useEffect(() => {
         props.setBodyClass("tagging-tracker__body increase-height");
-    }, []);
+    }, [props]);
 
     return (
         <>

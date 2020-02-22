@@ -240,7 +240,7 @@ const TagInfo = (props) => {
                 });
             }
         }
-    }, [tagInfo]);
+    }, [props, tagInfo]);
 
     return(
         <div className="tagging-tracker__tag-info">

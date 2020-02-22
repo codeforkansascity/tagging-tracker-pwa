@@ -11,9 +11,8 @@ const EditTags = (props) => {
     const offlineStorage = props.offlineStorage;
     const history = useHistory();
     const [localImages, setLocalImages] = useState(null);
-    const [deleteTagId, setDeleteTagId] = useState(null);
     const [deletePrompt, toggleDeletePrompt] = useState(false);
-    const [deleteInProgress, setDeleteInProgress] = useState(false);
+    const [deleteInProgress, setDeleteInProgress] = useState(false); // eslint-disable-line
     
     if (typeof props.location.state === "undefined") {
         history.push("/addresses");
@@ -24,7 +23,7 @@ const EditTags = (props) => {
             if (
                 offlineStorage.tags.where("addressId").equals(addressId).toArray()
                     .then((images) => {
-                        images.some((image) => {
+                        images.some((image) => { // eslint-disable-line
                             if (image.fileName === fileName) {
                                 offlineStorage.tags.where("fileName").equals(fileName).delete().then((deleteCount) => {
                                     if (deleteCount) {

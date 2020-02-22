@@ -151,24 +151,9 @@ const Navbar = (props) => {
 
     // focus
     useEffect(() => {
-        // if (!props.showAddressModal && props.location.pathname === "/addresses") {
-        //     searchAddressInput.current.focus();
-        // }
-
-        // TODO - fix the layout so don't need this hack, though this may still be used overall
-        // adjust body height based on route
-        // this code shouldn't be here but due to how the app has soft routes no way to pull url from app
-        // add class to body
-        // better to keep it here to avoid flash/reload jank
-        // const appBody = document.querySelector('.tagging-tracker__body');
-        // const routePath = window.location.href.split('/')[3];
-        // if (appBody) {
-        //     if (routePath !== "addresses" && routePath !== "add-tag") {
-        //         appBody.style.maxHeight = (window.innerHeight  - 104) + "px"; // this magic number is the navbar and bottom navbar
-        //     } else {
-        //         appBody.style.maxHeight = "100%";
-        //     }
-        // }
+        if (!props.showAddressModal && props.location.pathname === "/addresses" && searchAddressInput.current.value.length > 0) {
+            searchAddressInput.current.focus();
+        }
 
         // update online/offline status
         props.checkOnlineStatus();
