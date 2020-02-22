@@ -9,7 +9,10 @@ export const checkIOS = () => {
     const iOS = /(iPhone|iPod|iPhone Simulator|iPod Simulator|iPad|iPad Simulator|Macintosh)/g.test(navigator.userAgent);
 
     if (iOS) {
-        document.querySelector('.tagging-tracker').style.height = window.innerHeight + "px";
         document.querySelector('.tagging-tracker__bottom-navbar').classList.add('iOS');
     }
+}
+
+export const resizeAdjustHeight = () => {
+    document.querySelector('.tagging-tracker').style.height = window.innerHeight + "px";
 }

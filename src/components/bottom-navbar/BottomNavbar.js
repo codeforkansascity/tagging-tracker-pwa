@@ -9,7 +9,7 @@ import textDocument from './../../assets/icons/svgs/text-document.svg';
 import addSquare from './../../assets/icons/svgs/add-square.svg';
 import ajaxLoaderGray from './../../assets/gifs/ajax-loader--gray.gif';
 import { syncUserData, deleteLocalData } from '../../utils/sync/sync';
-import { checkIOS } from '../../utils/deviceCheckIOS';
+import { checkIOS, resizeAdjustHeight } from '../../utils/deviceCheckIOS';
 
 const BottomNavbar = (props) => {
     const syncBtn = useRef(null);
@@ -28,11 +28,6 @@ const BottomNavbar = (props) => {
 
     const saveToDevice = () => {
         props.saveToDevice();
-    }
-
-    // propogates upward click intent to then be received by AddTag body
-    const openCamera = () => {
-        props.triggerLoadCamera(true);
     }
 
     // this probably shouldn't be here but just an initializer
@@ -84,6 +79,12 @@ const BottomNavbar = (props) => {
         }
 
         props.triggerFileUpload(true);
+    }
+
+    // this is for Safari, since the prop method that is propagated up into AddTag
+    // doesn't work in Safari "not a direct action by user" file input wasn't working
+    const directCameraClick = () => {
+        document.getElementById('add-tag-file-input').click();
     }
 
     const renderBottomNavbar = (routeLocation) => {
@@ -144,7 +145,7 @@ const BottomNavbar = (props) => {
                 </>
             case "/add-tag":
                 return <>
-                    <button ref={ cameraBtn } onClick={ openCamera } className="bottom-navbar__btn quarter caps-blue border small-font" type="button">
+                    <button ref={ cameraBtn } onClick={ directCameraClick } className="bottom-navbar__btn quarter caps-blue border small-font" type="button">
                         <span>Use Camera</span>
                     </button>
                     <button ref={ uploadBtn } onClick={ uploadImages } className="bottom-navbar__btn quarter caps-blue border small-font" type="button" disabled={ props.loadedPhotos.length ? false : true }>
@@ -212,7 +213,9 @@ const BottomNavbar = (props) => {
 
     useEffect(() => {
 		// this modifies the layout/some css classes/styles based on if the user is using iOS/Safari
-		checkIOS();
+        window.addEventListener('resize', resizeAdjustHeight);
+        checkIOS();
+        window.removeEventListener('resize', resizeAdjustHeight);
     });
 
     return(

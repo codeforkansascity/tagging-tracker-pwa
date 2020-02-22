@@ -9,11 +9,21 @@
     height: calc(100vh - 76px); // also a no-no
 
     &.move-bottom-navbar-down {
-        overflow: hidden auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        .bottom-navbar__btn {
+            cursor: pointer;
+        }
     }
 
     #add-tag-file-input {
-        display: none;
+        position: absolute; /* can't be display none in Safari */
+        width: 0px;
+        height: 0px;
+        opacity: 0;
+        top: 0;
+        left: 0;
     }
 
     .tagging-tracker__address-tag {

@@ -2,7 +2,8 @@
 
 .tagging-tracker__addresses {
     display: block;
-    overflow: hidden auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     width: 100%;
 }
 

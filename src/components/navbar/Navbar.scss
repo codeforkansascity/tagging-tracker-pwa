@@ -46,7 +46,8 @@
         width: auto;
         max-width: 200px;
         display: block;
-        overflow: hidden auto;
+        overflow-x: hidden;
+        overflow-y: auto;
 
         button {
             white-space: nowrap;

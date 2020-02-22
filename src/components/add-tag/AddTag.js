@@ -204,7 +204,7 @@ const AddTag = (props) => {
     // Step 1: Click on file input when clicking on Use Camera button
     useEffect(() => {
         if (loadCamera) {
-            fileInput.current.click();
+            // handled in BottomNavbar directly
         } else {
             triggerLoadCamera(false);
         }

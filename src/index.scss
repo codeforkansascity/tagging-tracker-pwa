@@ -13,7 +13,8 @@ body {
 
   #root {
     display: block;
-    overflow: hidden auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     min-height: 100%;
 
     // this is for Desktop view since the app is designed for portrait/phones
