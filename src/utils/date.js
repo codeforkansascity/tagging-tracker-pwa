@@ -33,3 +33,7 @@ export const getDateTime = (format = "") => {
     // prints date & time in YYYY-MM-DD HH:MM:SS format
     return `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
 }
+
+export const getTimeStamp = () => {
+    return Date.now();
+}

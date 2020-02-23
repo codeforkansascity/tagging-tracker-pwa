@@ -73,8 +73,10 @@ const BottomNavbar = (props) => {
         }
 
         if (!props.token) {
-            alert('Please login to upload');
-            history.push("/login");
+            const loginDecision = window.confirm('You need to be logged in to upload. Login or use save to device to keep selected files. Pressing OK will redirect you to the login page.');
+            if (loginDecision) {
+                history.push("/login");
+            }
             return;
         }
 

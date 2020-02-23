@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import './AddTag.scss';
 import BottomNavbar from './../../components/bottom-navbar/BottomNavbar';
 import axios from 'axios';
+import { getTimeStamp } from './../../utils/date';
 
 /**
  * Brief explanation how this works it's kind of confusing since everything is a callback of a callback
@@ -19,6 +20,7 @@ const AddTag = (props) => {
     const [fileUpload, triggerFileUpload] = useState(false);
     const [loadedPhotos, setLoadedPhotos] = useState([]);
     const [savingToDevice, setSavingToDevice] = useState(false);
+    const [uploadInProgress, setUploadInProgress] = useState(false);
 
     // https://hacks.mozilla.org/2011/01/how-to-develop-a-html5-image-uploader/
     const scaleImage = (resolve, img) => {
@@ -87,7 +89,8 @@ const AddTag = (props) => {
                         fileName: loadedPhoto.meta.name,
                         src: loadedPhoto.src,
                         thumbnail_src: thumbnailSrc,
-                        meta: loadedPhoto.meta
+                        meta: loadedPhoto.meta,
+                        timestamp: getTimeStamp()
                     }).then((insertedId) => {
                         return true;
                     })
@@ -129,6 +132,7 @@ const AddTag = (props) => {
                 }
             }
             triggerFileUpload(false);
+            setUploadInProgress(false);
         })
         .catch((err) => {
             if (typeof err.response !== "undefined" && typeof err.response.status !== "undefined" && err.response.status === 403) {
@@ -137,6 +141,7 @@ const AddTag = (props) => {
             } else {
                 console.log('upload err', err);
                 triggerFileUpload(false);
+                setUploadInProgress(false);
             }
         });
     }
@@ -213,10 +218,12 @@ const AddTag = (props) => {
     }, [loadedPhotos]);
 
     useEffect(() => {
-        if (fileUpload) {
+        if (fileUpload && !uploadInProgress) {
+            setUploadInProgress(true);
             uploadImages();
         }
-    });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [fileUpload, uploadInProgress]); // TODO ugly fix above, eslint disable but not trying to put the upload code in here
 
     // TODO this is not staying eg. ugly flash
     useEffect(() => {

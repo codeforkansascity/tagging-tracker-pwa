@@ -62,11 +62,15 @@ const App = () => {
 		};
 	}
 
+	// tags: timestamp is a random, should be unique value for deletion locally
+	// it is not used for syncing or remote upload or anything like that
+	// the reason is it is not straight forward to get an id from Dexie to delete with
+	// I think because of how the schema is structured eg. its key is based on addresses ++id
 	const setupOfflineStorage = () => {
 		const db = new Dexie("LocalImageDatabase");
 		db.version(1).stores({
 			addresses: "++id,address,lat,lng,created,updated",
-			tags: "++,fileName,addressId,src,thumbnail_src,meta",
+			tags: "++,fileName,addressId,src,thumbnail_src,meta,timestamp",
 			ownerInfo: "++,addressId,formData",
 			tagInfo: "++,addressId,formData"
 		});
