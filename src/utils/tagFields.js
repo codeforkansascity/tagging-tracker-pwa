@@ -41,12 +41,20 @@ export const tagInfoFields = {
             other: "Other"
         }
     },
+    "Type of property": {
+        type: "radio",
+        options: {
+            commercial: "Commercial",
+            residential: "Residential",
+            public: "Public"
+        }
+    },
     "Vacant property": {
         type: "radio",
         options: {
             yes: "Yes",
             no: "No",
-            other: "Other"
+            other: "unknown"
         }
     },
     "Land bank property": {
@@ -54,15 +62,15 @@ export const tagInfoFields = {
         options: {
             yes: "Yes",
             no: "No",
-            other: "Other"
+            other: "unknown"
         }
     },
     "Surface:": {
         type: "checkbox",
         options: {
-            brick: "Bare Brick or Stone",
-            concrete: "Bare Concrete",
-            wood: "Bare Wood",
+            brick: "Brick or Stone",
+            concrete: "Concrete",
+            wood: "Wood",
             glass: "Glass",
             painted: "Painted",
             others: "other"
@@ -74,10 +82,9 @@ export const tagInfoFields = {
     "Need other code enforcement?": {
         type: "checkbox",
         options: {
-            no: "Bare Brick or Stone",
             buildingDisrepair: "Building disrepair",
             weeds: "Weeds",
-            trash: "Glass",
+            trash: "Trash",
             illegalDumping: "Illegal dumping",
             others: "other"
         }

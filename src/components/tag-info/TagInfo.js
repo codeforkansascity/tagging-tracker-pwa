@@ -30,6 +30,7 @@ const TagInfo = (props) => {
         "Racial or hate tone?": "",
         "Gang related": "",
         "Crossed out tag": "",
+        "Type of property": "",
         "Vacant property": "",
         "Land bank property": "",
         "Surface:": "",
@@ -38,8 +39,9 @@ const TagInfo = (props) => {
         "Other code enforcement:": ""
     }
 
-    // this is really bad, just a result of poor planning and brain dead
-            //             needOtherCodeEnforcement:
+    // note these options have to line up with what are in tagFields.js
+    // eg. 5 options here, 5 options there
+    // and these fields in general map with above by group
     const nameValueMap = {
         "option-0": "dateOfPicture",
         "option-1": "dateOfAbatement",
@@ -56,26 +58,28 @@ const TagInfo = (props) => {
         "option-8-0": "crossedOutTag",
         "option-8-1": "crossedOutTag",
         "option-8-2": "crossedOutTag",
-        "option-9-0": "vacantProperty",
-        "option-9-1": "vacantProperty",
-        "option-9-2": "vacantProperty",
-        "option-10-0": "landBankProperty",
-        "option-10-1": "landBankProperty",
-        "option-10-2": "landBankProperty",
-        "option-11-0": "surface",
-        "option-11-1": "surface",
-        "option-11-2": "surface",
-        "option-11-3": "surface",
-        "option-11-4": "surface",
-        "option-11-5": "surface",
-        "option-11-6": "otherSurface",
-        "option-12-0": "needOtherCodeEnforcement",
-        "option-12-1": "needOtherCodeEnforcement",
-        "option-12-2": "needOtherCodeEnforcement",
-        "option-12-3": "needOtherCodeEnforcement",
-        "option-12-4": "needOtherCodeEnforcement",
-        "option-12-5": "needOtherCodeEnforcement",
-        "option-12-6": "otherCodeEnforcement"
+        "option-9-0": "typeOfProperty",
+        "option-9-1": "typeOfProperty",
+        "option-9-2": "typeOfProperty",
+        "option-10-0": "vacantProperty",
+        "option-10-1": "vacantProperty",
+        "option-10-2": "vacantProperty",
+        "option-11-0": "landBankProperty",
+        "option-11-1": "landBankProperty",
+        "option-11-2": "landBankProperty",
+        "option-12-0": "surface",
+        "option-12-1": "surface",
+        "option-12-2": "surface",
+        "option-12-3": "surface",
+        "option-12-4": "surface",
+        "option-12-5": "surface",
+        "option-13-0": "otherSurface",
+        "option-14-0": "needOtherCodeEnforcement",
+        "option-14-1": "needOtherCodeEnforcement",
+        "option-14-2": "needOtherCodeEnforcement",
+        "option-14-3": "needOtherCodeEnforcement",
+        "option-14-4": "needOtherCodeEnforcement",
+        "option-15-0": "otherCodeEnforcement"
     };
 
     // damn this is brutal but it works
