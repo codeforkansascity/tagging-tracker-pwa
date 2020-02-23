@@ -1,3 +1,6 @@
+### UX
+- [ ] typing into logging field seems whack, probably due to state being tied to `onKeyUp`
+
 ### Fixing Safari
 - [x] add Safari detecting through `navigator.userAgent` parsing
 - [x] address height/bottom navbar, uses `window.innerHeight`

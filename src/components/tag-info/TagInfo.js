@@ -116,7 +116,7 @@ const TagInfo = (props) => {
 
             if (typeof element.subRefs !== "undefined" && Array.isArray(element.subRefs)) {
                 element.subRefs.forEach((subElement) => {
-                    mappedFieldValues[subElement.current.name] = subElement.current.checked;
+                    mappedFieldValues[subElement.current.id] = subElement.current.checked;
                 });
             } else if (elementType === "text" || elementType === "number" || elementType === "date") {
                 mappedFieldValues[element.current.name] = element.current.value;
@@ -192,7 +192,7 @@ const TagInfo = (props) => {
                     return optionKeys.map((optionKey, index) => {
                         return (
                             <span key={index} className="option-group">
-                                <input checked={ tagInfo ? tagInfo[`option-${mainIndex}-${index}`] : false } onChange={ updateTagInfo } id={`option-${mainIndex}-${index}`} name={ `option-${mainIndex}-${index}`}
+                                <input checked={ tagInfo ? tagInfo[`option-${mainIndex}-${index}`] : false } onChange={ updateTagInfo } id={`option-${mainIndex}-${index}`} name={ nameValueMap[`option-${mainIndex}-${index}`]}
                                     ref={tagInfoInputElements.current[mainIndex].subRefs[index]} type={ fieldType } disabled={ props.modifyTagInfo ? false : true } />
                                 <label htmlFor={`option-${mainIndex}-${index}`}>{ fieldGroup.options[optionKey] }</label>
                             </span>
