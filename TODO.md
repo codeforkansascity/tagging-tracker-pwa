@@ -30,10 +30,6 @@
 - [ ] look into weird alignment of add tag buttons in bottom navbar
 - [ ] height issue in iPad
 
-### Async processes(add spinner)
-- [ ] delete image?
-- [ ] loading of images in `/view-address` and `/edit-tags`
-
 ### TODOs in code, just search, will find a lot related to optimizing/best practices/etc...
 
 ### Functionality
