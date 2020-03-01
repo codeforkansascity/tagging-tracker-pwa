@@ -70,7 +70,7 @@ const App = () => {
 		const db = new Dexie("LocalImageDatabase");
 		db.version(1).stores({
 			addresses: "++id,address,lat,lng,created,updated",
-			tags: "++,fileName,addressId,src,thumbnail_src,meta,timestamp",
+			tags: "++,fileName,addressId,meta,timestamp",
 			ownerInfo: "++,addressId,formData",
 			tagInfo: "++,addressId,formData"
 		});

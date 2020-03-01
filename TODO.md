@@ -1,3 +1,21 @@
+### Performance
+- regarding Safari, storage issue should not be a problem, according to this [webkit spec](https://trac.webkit.org/changeset/237700/webkit/), the size limitation for Safari is half the free space if less than 1GB or at least 500MB
+    - from a test on a computer(with ethernet with 200Mbps) it took about a minute to pull down 85MB+ of images, those are probably bigger when turned to base64
+    - NOPE it's the upload that took a while, download was only a couple seconds
+- [ ] address sync performance issue
+    - [ ] rewrite sync logic to not sync everything, specifically the images, can sync the thumbnails
+    - [ ] large images not needed since only small thumbnails are used, however, they should be available for the click thumbnail to view full size
+        - but that can be done on demand/cached locally in session
+        - address sync up and down to ignore the full size src, so it is not deleted
+    - [ ] at somepoint - address the sync pagination
+- [ ] pagination issue with Dexie eg. 36 rows being pulled to load 36 images throws [max ipc length](https://stackoverflow.com/questions/52717593/maximum-ipc-message-size-exceeded) issue
+    - [ ] need to add scroll load
+- [ ] take out large columns that should not be indexed
+    - so... I did not read thoroughly enough, you're not supposed to specify columns that should not be indexed in stores... I thought that was just a schema definition but [this page](https://dexie.org/docs/Version/Version.stores()) says to not include big stuff but can still insert it later as per example.
+
+### Feature to open large image from thumbnail
+- [ ] put a warning first time opening big picture(from thumbnail click) that it will use data
+
 ### UX
 - [ ] typing into logging field seems whack, probably due to state being tied to `onKeyUp`
 
