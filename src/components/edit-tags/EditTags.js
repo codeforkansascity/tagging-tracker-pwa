@@ -117,7 +117,7 @@ const EditTags = (props) => {
         } else {
             return <div className="tagging-tracker__edit-tags-loading">
                 <span>Loading tags...</span>
-                <img src={ ajaxLoaderGray } alt="sync button" />
+                <img src={ ajaxLoaderGray } alt="loading tags spinner" />
             </div>;
         }
     }

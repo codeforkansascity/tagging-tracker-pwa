@@ -102,10 +102,10 @@ const BottomNavbar = (props) => {
                         {props.syncApp
                             ? <>
                                 <span>Syncing...</span>
-                                <img src={ ajaxLoaderGray } alt="sync button" />
+                                <img src={ ajaxLoaderGray } alt="syncing spinner" />
                             </>
                             : <>
-                                <img src={ syncIcon } alt="sync button" />
+                                <img src={ syncIcon } alt="sync button icon" />
                                 <span>Sync</span>
                             </>
                         }
@@ -114,10 +114,10 @@ const BottomNavbar = (props) => {
                         {props.loggingOut
                             ? <>
                                 <span>Logging out...</span>
-                                <img src={ ajaxLoaderGray } alt="sync button" />
+                                <img src={ ajaxLoaderGray } alt="logging out spinner" />
                             </>
                             : <>
-                                <img src={ logoutIcon } alt="logout button" />
+                                <img src={ logoutIcon } alt="logout button icon" />
                                 <span>Logout</span>
                             </>
                         }
@@ -132,7 +132,7 @@ const BottomNavbar = (props) => {
                                 addressId: address.addressId // used for lookup
                         }}}
                         className="bottom-navbar__btn third">
-                        <img src={ property } alt="home owner button" />
+                        <img src={ property } alt="home owner button icon" />
                         <span>Owner Info</span>
                     </Link>
                     <Link
@@ -141,7 +141,7 @@ const BottomNavbar = (props) => {
                                 addressId: address.addressId // used for lookup
                         }}}
                         className="bottom-navbar__btn third">
-                        <img src={ textDocument } alt="tag info button" />
+                        <img src={ textDocument } alt="tag info button icon" />
                         <span>Tag Info</span>
                     </Link>
                     <Link
@@ -150,7 +150,7 @@ const BottomNavbar = (props) => {
                             addressId: address.addressId // used for lookup
                         }}}
                         className="bottom-navbar__btn third">
-                        <img src={ addSquare } alt="add tag" />
+                        <img src={ addSquare } alt="add tag icon" />
                         <span>Add Tag</span>
                     </Link>
                 </>
@@ -163,7 +163,7 @@ const BottomNavbar = (props) => {
                         {props.uploadInProgress
                             ? <>
                                 <span>Uploading...</span>
-                                <img src={ ajaxLoaderBlue } alt="sync button" />
+                                <img src={ ajaxLoaderBlue } alt="uploading spinner" />
                             </>
                             : <>
                                 <span>Upload</span>
@@ -177,7 +177,7 @@ const BottomNavbar = (props) => {
                             {props.savingToDevice
                                 ? <>
                                     <span>Saving...</span>
-                                    <img src={ ajaxLoaderBlue } alt="sync button" />
+                                    <img src={ ajaxLoaderBlue } alt="saving spinner" />
                                 </>
                                 : <>
                                     <span>Save To Device</span>
@@ -204,7 +204,7 @@ const BottomNavbar = (props) => {
                                 addressId: address.addressId // used for lookup
                         }}}
                         className={"bottom-navbar__btn toggled " + (!tagPath ? "active" : "") }>
-                            <img src={ property } alt="home owner button" />
+                            <img src={ property } alt="home owner button icon" />
                             <span>Owner Info</span>
                     </Link>
                     <Link
@@ -213,7 +213,7 @@ const BottomNavbar = (props) => {
                                 addressId: address.addressId // used for lookup
                         }}}
                         className={"bottom-navbar__btn toggled " + (tagPath ? "active" : "") }>
-                            <img src={ textDocument } alt="tag info button" />
+                            <img src={ textDocument } alt="tag info button icon" />
                             <span>Tag Info</span>
                     </Link>
                 </>
