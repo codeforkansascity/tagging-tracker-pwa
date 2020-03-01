@@ -2,6 +2,7 @@ import React, { useState  } from 'react';
 import { useHistory } from 'react-router-dom';
 import './ViewAddress.scss';
 import { getImagePreviewAspectRatioClass } from './../../utils/image';
+import ajaxLoaderGray from './../../assets/gifs/ajax-loader--gray.gif';
 
 const ViewAddress = (props) => {
     const history = useHistory();
@@ -37,6 +38,11 @@ const ViewAddress = (props) => {
                     backgroundImage: `url(${image.thumbnail_src})`
                 }} alt="address thumbnail" className={ "address__tag-image " + getImagePreviewAspectRatioClass(localImages[index]) } />
             });
+        } else {
+            return <div className="tagging-tracker__view-address-loading">
+                <span>Loading tags...</span>
+                <img src={ ajaxLoaderGray } alt="sync button" />
+            </div>;
         }
     }
 

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import './EditTags.scss';
 import { getImagePreviewAspectRatioClass } from './../../utils/image';
 import closeIcon from './../../assets/icons/svgs/close.svg';
+import ajaxLoaderGray from './../../assets/gifs/ajax-loader--gray.gif';
 
 // TODO this is bad but poor design
 let fileNameOfImageToDelete;
@@ -113,6 +114,11 @@ const EditTags = (props) => {
                     <div style={{ backgroundImage: `url(${closeIcon})` }} className="tagging-tracker__edit-tags-close-btn"></div>
                 </div>
             });
+        } else {
+            return <div className="tagging-tracker__edit-tags-loading">
+                <span>Loading tags...</span>
+                <img src={ ajaxLoaderGray } alt="sync button" />
+            </div>;
         }
     }
 

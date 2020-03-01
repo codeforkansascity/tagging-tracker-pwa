@@ -58,8 +58,7 @@ const BottomNavbar = (props) => {
                     }
                 }
             } else if (synced) {
-                // await updateLocalStorageFromSync(props, synced);
-                alert('Sync successful');
+                // synced
             } else {
                 alert('Failed to sync');
             }

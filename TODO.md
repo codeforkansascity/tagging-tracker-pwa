@@ -1,10 +1,14 @@
+### Flaw
+- [ ] the timestamp trick for unique images that were previously deleted by name(problematic when files have same names) doesn't work when you sync down
+    - because the time stamp is a temporary/local thing not maintained in remote side, may add new column to remote side
+    - the main issue is not able to include key from column queries, you can do a key only column but then need to match with data/double calls
+    - in a way this is an edge case problem but arguable if a phone was reset or something... well usually camera file names are usually date-based so you would still have unique file names
+
 ### Performance
 - regarding Safari, storage issue should not be a problem, according to this [webkit spec](https://trac.webkit.org/changeset/237700/webkit/), the size limitation for Safari is half the free space if less than 1GB or at least 500MB
     - from a test on a computer(with ethernet with 200Mbps) it took about a minute to pull down 85MB+ of images, those are probably bigger when turned to base64
     - NOPE it's the upload that took a while, download was only a couple seconds
 - [ ] address sync performance issue
-    - [x] rewrite sync logic to not sync everything, specifically the src column, can sync the thumbnails
-        - didn't "rewrite" but I took out the large images, have to add pagination though
     - [ ] large images not needed since only small thumbnails are used, however, they should be available for the click thumbnail to view full size
         - but that can be done on demand/cached locally in session
         - address sync up and down to ignore the full size src, so it is not deleted
@@ -12,8 +16,6 @@
 - [ ] pagination issue with Dexie eg. 36 rows being pulled to load 36 images throws [max ipc length](https://stackoverflow.com/questions/52717593/maximum-ipc-message-size-exceeded) issue
     - [ ] need to add scroll load
         - issue with this is if you were to udpate state, it would re-render the page, vs. just appending content to the current rendered view
-- [x] take out large columns that should not be indexed
-    - so... I did not read thoroughly enough, you're not supposed to specify columns that should not be indexed in stores... I thought that was just a schema definition but [this page](https://dexie.org/docs/Version/Version.stores()) says to not include big stuff but can still insert it later as per example.
 
 ### Feature to open large image from thumbnail
 - [ ] put a warning first time opening big picture(from thumbnail click) that it will use data
@@ -25,20 +27,16 @@
 - [ ] typing into logging field seems whack, probably due to state being tied to `onKeyUp`
 
 ### Fixing Safari
-- [x] add Safari detecting through `navigator.userAgent` parsing
-- [x] address height/bottom navbar, uses `window.innerHeight`
-- [x] address collapsing buttons in bottom navbar, addressed by `iOS` class and not using `flex: 0;`
 - [ ] look into weird alignment of add tag buttons in bottom navbar
-- [x] file input doesn't trigger camera/file manager
 - [ ] height issue in iPad
 
 ### Async processes(add spinner)
 - [ ] delete image?
+- [ ] loading of images in `/view-address` and `/edit-tags`
 
 ### TODOs in code, just search, will find a lot related to optimizing/best practices/etc...
 
 ### Functionality
-- [x] Safari issues most notably: file input and CSS problems eg. height cut off by bottom navbar/alignment(flex)
 - [ ] cancelling camera upload process leaves button not clickable/state not updated
 - [ ] automatic cache clearing vs. manual "Software Update" gear icon
 
@@ -54,13 +52,6 @@
     - this also works on iPad from testing
     ![date-input-type-check](./date-input-type-check.png)
 
-- [x] On Tag Info: for vacant property and land bank property - change "Other" option to "Unknown"
-- [x] On Tag Info: On Surface options - remove "Bare" from Bare Brick or Stone, Bare Concrete, Bare Wood
-- [x] On Tag Info: Options for Need other code enforcement? - delete "Bare brick or stone" and "glass" and add "Trash"
-- [x] On Tag Info: Add Type of Property with options for Commercial, Residential, Public
-    - added this but breaks old structure due to where it's positioned eg. not at end, form is incrementally rendered with mapped fields so order matters
-    - at least no real data yet
-
 ### Sync
 - [ ] consider better way than empty pulldown or not empty overwrite up
 - [ ] some kind of diffing
@@ -74,15 +65,7 @@ Unfortunately there are quite a few problems visually
 - [ ] the bottom navbar is cut off
     - set by JS, it looks good from a tester with a real device, doesn't look good in SauceLabs real devices,
         but looks good in responsive mode Safari
-- [x] on owner/tag info the bottom navbar is just floating in the air/not pinned
-    - overflow css issue(doesn't like one-liner wants `overflow-x`, `overflow-y`)
 - [ ] bottom navbar items not veritcally centered(flex)
-- [x] use camera doesn't trigger camera/file select
-- [x] set max width to 1024px
-
-### Questionable
-- [x] deleting files by filename on the `Edit Tag` page
-    - addressed with new backward-compatible timestamp
 
 ### Extra
 - [ ] storage persistence for estimates on available storage should that be a problem
