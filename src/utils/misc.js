@@ -16,3 +16,13 @@ export const checkIOS = () => {
 export const resizeAdjustHeight = () => {
     document.querySelector('.tagging-tracker').style.height = window.innerHeight + "px";
 }
+
+// TODO this is not great magic number is from the bottom navbar
+// mainly it's bad due to that JS render flash jank
+export const addPathClassToBody = (props) => {
+    const curPath = props.location.pathname;
+
+    if (curPath !== "/addresses" || curPath !== "/") {
+        document.querySelector('.tagging-tracker__body').style.maxHeight = (window.innerHeight - 52) + "px";
+    }
+}

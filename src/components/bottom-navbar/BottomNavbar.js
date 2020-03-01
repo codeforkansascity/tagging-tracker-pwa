@@ -9,7 +9,7 @@ import textDocument from './../../assets/icons/svgs/text-document.svg';
 import addSquare from './../../assets/icons/svgs/add-square.svg';
 import ajaxLoaderGray from './../../assets/gifs/ajax-loader--gray.gif';
 import { syncUserData, deleteLocalData } from '../../utils/sync/sync';
-import { checkIOS, resizeAdjustHeight } from '../../utils/deviceCheckIOS';
+import { checkIOS, resizeAdjustHeight, addPathClassToBody } from '../../utils/misc';
 
 const BottomNavbar = (props) => {
     const syncBtn = useRef(null);
@@ -217,6 +217,7 @@ const BottomNavbar = (props) => {
 		// this modifies the layout/some css classes/styles based on if the user is using iOS/Safari
         window.addEventListener('resize', resizeAdjustHeight);
         checkIOS();
+        addPathClassToBody(props);
         window.removeEventListener('resize', resizeAdjustHeight);
     });
 

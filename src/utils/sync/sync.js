@@ -92,7 +92,6 @@ const updateLocalTags = (props, remoteData) => {
                     offlineStorage.tags.add({
                         addressId: tagRow.address_id,
                         fileName: tagMeta.name,
-                        src: tagRow.src,
                         thumbnail_src: tagRow.thumbnail_src,
                         meta: tagMeta
                     }).then((insertedId) => {
