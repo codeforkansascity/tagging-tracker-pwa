@@ -11,6 +11,7 @@
     - [ ] at somepoint - address the sync pagination
 - [ ] pagination issue with Dexie eg. 36 rows being pulled to load 36 images throws [max ipc length](https://stackoverflow.com/questions/52717593/maximum-ipc-message-size-exceeded) issue
     - [ ] need to add scroll load
+        - issue with this is if you were to udpate state, it would re-render the page, vs. just appending content to the current rendered view
 - [x] take out large columns that should not be indexed
     - so... I did not read thoroughly enough, you're not supposed to specify columns that should not be indexed in stores... I thought that was just a schema definition but [this page](https://dexie.org/docs/Version/Version.stores()) says to not include big stuff but can still insert it later as per example.
 
@@ -32,10 +33,7 @@
 - [ ] height issue in iPad
 
 ### Async processes(add spinner)
-- [ ] delete image
-- [ ] upload
-- [ ] save to device
-- [ ] logout
+- [ ] delete image?
 
 ### TODOs in code, just search, will find a lot related to optimizing/best practices/etc...
 
@@ -62,9 +60,6 @@
 - [x] On Tag Info: Add Type of Property with options for Commercial, Residential, Public
     - added this but breaks old structure due to where it's positioned eg. not at end, form is incrementally rendered with mapped fields so order matters
     - at least no real data yet
-
-### Login/Logout
-- [ ] add spinner to logout process
 
 ### Sync
 - [ ] consider better way than empty pulldown or not empty overwrite up
@@ -96,6 +91,7 @@ Unfortunately there are quite a few problems visually
 - [ ] fix double promises(`Promise` inside `async` function)
 - [ ] caching intent eg. user selects a bunch of pictures for upload/but can't upload because not logged in
 - [ ] change how logic works regarding not pulling from `Dexie` all the time, use state variables
+- [ ] multi file select feature for add tags
 
 ### Optional
 - [ ] adding in auto complete for address search, not hard but concern is cost/necessary
@@ -111,3 +107,8 @@ Unfortunately there are quite a few problems visually
 
 ### Good pratice
 - [ ] don't develop on live url
+    - setup staging environment somewhere other than local
+
+## Bad UX
+- [ ] trying to do something, not logged in, get taken to login, doesn't take you back to what you were doing before
+- [ ] the dynamic resizing of heights due to bad state-render management and device OS(Safari bottom navbar specifically)

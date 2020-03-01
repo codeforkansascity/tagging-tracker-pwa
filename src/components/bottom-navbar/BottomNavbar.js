@@ -8,6 +8,7 @@ import property from './../../assets/icons/svgs/property.svg';
 import textDocument from './../../assets/icons/svgs/text-document.svg';
 import addSquare from './../../assets/icons/svgs/add-square.svg';
 import ajaxLoaderGray from './../../assets/gifs/ajax-loader--gray.gif';
+import ajaxLoaderBlue from './../../assets/gifs/ajax-loader--blue.gif';
 import { syncUserData, deleteLocalData } from '../../utils/sync/sync';
 import { checkIOS, resizeAdjustHeight, addPathClassToBody } from '../../utils/misc';
 
@@ -19,6 +20,7 @@ const BottomNavbar = (props) => {
     const history = useHistory();
 
     const logout = async () => {
+        props.updateLoggingOut(true);
         const localStorageCleared = await deleteLocalData(props.offlineStorage);
         if (!localStorageCleared) {
             alert('failed to clear local data');
@@ -110,8 +112,16 @@ const BottomNavbar = (props) => {
                         }
                     </button>
                     <button ref={ logoutBtn } onClick={ logout } className="bottom-navbar__btn half" type="button">
-                        <img src={ logoutIcon } alt="logout button" />
-                        <span>Logout</span>
+                        {props.loggingOut
+                            ? <>
+                                <span>Logging out...</span>
+                                <img src={ ajaxLoaderGray } alt="sync button" />
+                            </>
+                            : <>
+                                <img src={ logoutIcon } alt="logout button" />
+                                <span>Logout</span>
+                            </>
+                        }
                     </button>
                 </>
             case "/view-address":
@@ -151,14 +161,29 @@ const BottomNavbar = (props) => {
                         <span>Use Camera</span>
                     </button>
                     <button ref={ uploadBtn } onClick={ uploadImages } className="bottom-navbar__btn quarter caps-blue border small-font" type="button" disabled={ props.loadedPhotos.length ? false : true }>
-                        <span>Upload</span>
+                        {props.uploadInProgress
+                            ? <>
+                                <span>Uploading...</span>
+                                <img src={ ajaxLoaderBlue } alt="sync button" />
+                            </>
+                            : <>
+                                <span>Upload</span>
+                            </>
+                        }
                     </button>
-                    <button
-                        onClick={ saveToDevice }
+                    <button onClick={ saveToDevice }
                         className="bottom-navbar__btn quarter caps-blue border small-font"
                         type="button"
                         disabled={ props.savingToDevice ? true : false }>
-                        <span>Save To Device</span>
+                            {props.savingToDevice
+                                ? <>
+                                    <span>Saving...</span>
+                                    <img src={ ajaxLoaderBlue } alt="sync button" />
+                                </>
+                                : <>
+                                    <span>Save To Device</span>
+                                </>
+                            }
                     </button>
                     <Link
                         to={{ pathname: "/view-address", state: {
@@ -166,7 +191,7 @@ const BottomNavbar = (props) => {
                             addressId: address.addressId // used for lookup
                         }}}
                         className="bottom-navbar__btn quarter caps-blue small-font">
-                        <span>Cancel</span>
+                            <span>Cancel</span>
                     </Link>
                 </>
             case "/tag-info":
@@ -180,8 +205,8 @@ const BottomNavbar = (props) => {
                                 addressId: address.addressId // used for lookup
                         }}}
                         className={"bottom-navbar__btn toggled " + (!tagPath ? "active" : "") }>
-                        <img src={ property } alt="home owner button" />
-                        <span>Owner Info</span>
+                            <img src={ property } alt="home owner button" />
+                            <span>Owner Info</span>
                     </Link>
                     <Link
                         to={{ pathname: "/tag-info", state: {
@@ -189,8 +214,8 @@ const BottomNavbar = (props) => {
                                 addressId: address.addressId // used for lookup
                         }}}
                         className={"bottom-navbar__btn toggled " + (tagPath ? "active" : "") }>
-                        <img src={ textDocument } alt="tag info button" />
-                        <span>Tag Info</span>
+                            <img src={ textDocument } alt="tag info button" />
+                            <span>Tag Info</span>
                     </Link>
                 </>
             default:

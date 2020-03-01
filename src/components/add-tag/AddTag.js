@@ -244,6 +244,8 @@ const AddTag = (props) => {
                 fileUpload={fileUpload}
                 saveToDevice={saveToDevice}
                 savingToDevice={savingToDevice}
+                uploadInProgress={uploadInProgress}
+                setUploadInProgress={setUploadInProgress}
                 loadedPhotos={loadedPhotos}
                 appOnline={props.appOnline}
                 token={props.token}
