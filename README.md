@@ -65,7 +65,7 @@ You will need to build the static files with `npm run build` and then deploy the
 Note that you can't add to homescreen from incognito. Also for iOS only Safari can add to home screen.
 
 ### Work in progress
-Here is a TODO list mostly regarding cross browser styling and functionality issues as well as code cleanup/refactoring.
+Here is a [TODO list](https://github.com/codeforkansascity/tagging-tracker-pwa/blob/master/TODO.md) mostly regarding cross browser styling and functionality issues as well as code cleanup/refactoring.
 
 ### More info
 The original PWA/Node app was developed on this monolithic repo [here](https://github.com/jdc-cunningham/codeforkc--tagging-tracker/)
