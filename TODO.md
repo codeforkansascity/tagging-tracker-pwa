@@ -1,6 +1,7 @@
 ### GitHub Pages deployment
 - point domain to GitHub IPs
 - test/fix the `package.json` homepage
+- investigate domain pointing to this subdirectory so it doesn't have a subdirectory
 
 ### Flaw
 - [ ] the timestamp trick for unique images that were previously deleted by name(problematic when files have same names) doesn't work when you sync down
