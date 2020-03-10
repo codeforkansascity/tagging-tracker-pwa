@@ -64,6 +64,9 @@ You will need to build the static files with `npm run build` and then deploy the
 #### Deploy to GitHub Pages
 I have set this repo up to use GitHub Pages by the `/docs` folder. So you will build the app by `npm run build` then the static files generated will be in the `/build` folder. Then you can drag those files into the `/docs` folder and they will show up in the `taggingtracker.org` domain. The back end will be hosted in an AWS EC2 instance as a docker container. That should be accessible by `api.taggingtracker.org` once it's configured.
 
+#### Note about deployment
+If you have a base domain with a sub directory eg. `https://domain.com/subdirectory/` this will be problematic because the routes of the app are only one level deep, so that `/subdirectory/` path will not be recognized as one of the routes that render the pages.
+
 ### Client-side usage/installation
 Note that you can't add to homescreen from incognito. Also for iOS only Safari can add to home screen.
 

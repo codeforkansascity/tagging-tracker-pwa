@@ -1,3 +1,7 @@
+### GitHub Pages deployment
+- point domain to GitHub IPs
+- test/fix the `package.json` homepage
+
 ### Flaw
 - [ ] the timestamp trick for unique images that were previously deleted by name(problematic when files have same names) doesn't work when you sync down
     - because the time stamp is a temporary/local thing not maintained in remote side, may add new column to remote side
