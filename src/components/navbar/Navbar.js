@@ -8,6 +8,8 @@ const Navbar = (props) => {
     const searchAddressInput = useRef(null);
     const [showSettings, setShowSettings] = useState(false);
 
+    console.log(props);
+
     const searchAddresses = (searchStr) => {
         props.searchAddress(searchStr);
     }
