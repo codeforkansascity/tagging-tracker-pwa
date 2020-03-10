@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/tagging-tracker-pwa/static/css/main.b6375dab.chunk.css",
-    "main.js": "/tagging-tracker-pwa/static/js/main.3f00881d.chunk.js",
-    "main.js.map": "/tagging-tracker-pwa/static/js/main.3f00881d.chunk.js.map",
+    "main.js": "/tagging-tracker-pwa/static/js/main.8b9d64de.chunk.js",
+    "main.js.map": "/tagging-tracker-pwa/static/js/main.8b9d64de.chunk.js.map",
     "runtime-main.js": "/tagging-tracker-pwa/static/js/runtime-main.26f40841.js",
     "runtime-main.js.map": "/tagging-tracker-pwa/static/js/runtime-main.26f40841.js.map",
     "static/js/2.5f21f499.chunk.js": "/tagging-tracker-pwa/static/js/2.5f21f499.chunk.js",
     "static/js/2.5f21f499.chunk.js.map": "/tagging-tracker-pwa/static/js/2.5f21f499.chunk.js.map",
     "index.html": "/tagging-tracker-pwa/index.html",
-    "precache-manifest.26a38dfb1b70b2019040b8126d68a934.js": "/tagging-tracker-pwa/precache-manifest.26a38dfb1b70b2019040b8126d68a934.js",
+    "precache-manifest.dde5c3bfbcb3b5536a37d38079ebfaaa.js": "/tagging-tracker-pwa/precache-manifest.dde5c3bfbcb3b5536a37d38079ebfaaa.js",
     "service-worker.js": "/tagging-tracker-pwa/service-worker.js",
     "static/css/main.b6375dab.chunk.css.map": "/tagging-tracker-pwa/static/css/main.b6375dab.chunk.css.map",
     "static/js/2.5f21f499.chunk.js.LICENSE": "/tagging-tracker-pwa/static/js/2.5f21f499.chunk.js.LICENSE",
@@ -28,6 +28,6 @@
     "static/js/runtime-main.26f40841.js",
     "static/js/2.5f21f499.chunk.js",
     "static/css/main.b6375dab.chunk.css",
-    "static/js/main.3f00881d.chunk.js"
+    "static/js/main.8b9d64de.chunk.js"
   ]
 }
