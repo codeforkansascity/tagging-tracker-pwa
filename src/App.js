@@ -33,7 +33,7 @@ const App = () => {
 
 	// this is for the github pages deployment for the subdirectory
 	// this also gets passed down into navbar.js and bottomNavbar.js
-	const baseName = window.location.href.indexOf('localhost:') === -1 ? "" : "tagging-tracker-pwa";
+	const baseName = window.location.href.indexOf('localhost:') !== -1 ? "" : "tagging-tracker-pwa";
 
 	const searchAddress = (searchStr) => {
 		updateSearchedAddress(searchStr);
