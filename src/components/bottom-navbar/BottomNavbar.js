@@ -92,8 +92,9 @@ const BottomNavbar = (props) => {
 
     const renderBottomNavbar = (routeLocation) => {
         const address = props.location.state;
+        const routePath =  props.baseDir ? routeLocation.pathname.replace(props.baseDir + "/", "") : routeLocation.pathname;
 
-        switch(routeLocation.pathname) {
+        switch(routePath) {
             case "/":
             case "/addresses":
                 return <>

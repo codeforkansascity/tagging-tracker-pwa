@@ -8,8 +8,6 @@ const Navbar = (props) => {
     const searchAddressInput = useRef(null);
     const [showSettings, setShowSettings] = useState(false);
 
-    console.log(props);
-
     const searchAddresses = (searchStr) => {
         props.searchAddress(searchStr);
     }
@@ -115,7 +113,8 @@ const Navbar = (props) => {
     }
 
     const renderNavbar = (routeLocation) => {
-        switch(routeLocation.pathname) {
+        const routePath = props.baseDir ? routeLocation.pathname.replace(props.baseDir + "/", "") : routeLocation.pathname;
+        switch(routePath) {
             case '/':
             case '/addresses':
                 return <>

@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/tagging-tracker-pwa/static/css/main.0296313e.chunk.css",
+    "main.js": "/tagging-tracker-pwa/static/js/main.7c44fdc9.chunk.js",
+    "main.js.map": "/tagging-tracker-pwa/static/js/main.7c44fdc9.chunk.js.map",
+    "runtime-main.js": "/tagging-tracker-pwa/static/js/runtime-main.26f40841.js",
+    "runtime-main.js.map": "/tagging-tracker-pwa/static/js/runtime-main.26f40841.js.map",
+    "static/js/2.5f21f499.chunk.js": "/tagging-tracker-pwa/static/js/2.5f21f499.chunk.js",
+    "static/js/2.5f21f499.chunk.js.map": "/tagging-tracker-pwa/static/js/2.5f21f499.chunk.js.map",
+    "index.html": "/tagging-tracker-pwa/index.html",
+    "precache-manifest.3bd6f293dae5bc45c7decfca9f0d314a.js": "/tagging-tracker-pwa/precache-manifest.3bd6f293dae5bc45c7decfca9f0d314a.js",
+    "service-worker.js": "/tagging-tracker-pwa/service-worker.js",
+    "static/css/main.0296313e.chunk.css.map": "/tagging-tracker-pwa/static/css/main.0296313e.chunk.css.map",
+    "static/js/2.5f21f499.chunk.js.LICENSE": "/tagging-tracker-pwa/static/js/2.5f21f499.chunk.js.LICENSE",
+    "static/media/App.scss": "/tagging-tracker-pwa/static/media/Roboto-Thin.321de678.ttf",
+    "static/media/add-square.svg": "/tagging-tracker-pwa/static/media/add-square.00e36f36.svg",
+    "static/media/Navbar.scss": "/tagging-tracker-pwa/static/media/search-gray.037e04f5.svg",
+    "static/media/chevron-blue.svg": "/tagging-tracker-pwa/static/media/chevron-blue.f48ced71.svg",
+    "static/media/chevron.svg": "/tagging-tracker-pwa/static/media/chevron.8417a1be.svg",
+    "static/media/close.svg": "/tagging-tracker-pwa/static/media/close.db093ba0.svg",
+    "static/media/property.svg": "/tagging-tracker-pwa/static/media/property.8673af4c.svg",
+    "static/media/switch.svg": "/tagging-tracker-pwa/static/media/switch.e4b4aac4.svg",
+    "static/media/tagging-tracker-logo.PNG": "/tagging-tracker-pwa/static/media/tagging-tracker-logo.4295bb0d.PNG",
+    "static/media/text-document.svg": "/tagging-tracker-pwa/static/media/text-document.e93f329b.svg",
+    "static/media/upload.svg": "/tagging-tracker-pwa/static/media/upload.d4af3f99.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.26f40841.js",
+    "static/js/2.5f21f499.chunk.js",
+    "static/css/main.0296313e.chunk.css",
+    "static/js/main.7c44fdc9.chunk.js"
+  ]
+}

@@ -31,6 +31,10 @@ const App = () => {
 	const [syncApp, setSyncApp] = useState(false);
 	const [loggingOut, updateLoggingOut] = useState(false);
 
+	// this is for the github pages deployment for the subdirectory
+	// this also gets passed down into navbar.js and bottomNavbar.js
+	const baseName = window.location.href.indexOf('localhost:') === -1 ? "" : "tagging-tracker-pwa";
+
 	const searchAddress = (searchStr) => {
 		updateSearchedAddress(searchStr);
 	}
@@ -145,9 +149,10 @@ const App = () => {
 
 	return (
 		<div className="tagging-tracker">
-			<Router>
+			<Router basename={ baseName }>
 				<Route component={ (props) =>
 					<Navbar {...props}
+						baseDir={ baseName }
 						searchAddress={searchAddress}
 						searchedAddress={searchedAddress}
 						toggleAddressModal={toggleAddressModal}
@@ -237,6 +242,7 @@ const App = () => {
 					(props.location.pathname !== "/login" && props.location.pathname !== "/add-tag")
 						? <BottomNavbar
 							{...props}
+							baseDir={ baseName }
 							appOnline={appOnline}
 							token={token}
 							syncApp={syncApp}
