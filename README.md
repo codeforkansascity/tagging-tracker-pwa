@@ -1,6 +1,9 @@
 ### About
 This is an alternative take on the front end for the Tagging Tracker project. This app is built with ReactJS and utilizes the built in PWA feature. There is a matching [back end](https://github.com/codeforkansascity/tagging-tracker-pwa-backend) for it written in Node.
 
+### Demo
+The static build of this PWA front end is hosted [here](https://codeforkc.org/tagging-tracker-pwa/), the GitHub pages for this repo.
+
 ### Technical Overview
 The main features of this app are:
 * offline-first functionality using `Dexie` an `IndexedDB` wrapper
