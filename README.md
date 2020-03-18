@@ -67,6 +67,12 @@ You will need to build the static files with `npm run build` and then deploy the
 #### Deploy to GitHub Pages
 I have set this repo up to use GitHub Pages by the `/docs` folder. So you will build the app by `npm run build` then the static files generated will be in the `/build` folder. Then you can drag those files into the `/docs` folder and they will show up in the `taggingtracker.org` domain. The back end will be hosted in an AWS EC2 instance as a docker container. That should be accessible by `api.taggingtracker.org` once it's configured.
 
+Note: if the url has a subdirectory eg. `domain.com/sub-directory/app-base-path` that will cause problems with routes. There are two places to update:
+* `App.js` - modify `baseName`
+* `package.json` - update the `homepage`
+
+**Important** There is a `CNAME` file(no extension), this file is in the `/docs` folder which cotains the files served on GitHub pages for this repo. This file needs to be here for the unique domain. When building/replacing static content, do not delete this file, or remember to add it back. Replace all the other files though, primarily the minified/cached files that need to reflect paths.
+
 #### Note about deployment
 If you have a base domain with a sub directory eg. `https://domain.com/subdirectory/` this will be problematic because the routes of the app are only one level deep, so that `/subdirectory/` path will not be recognized as one of the routes that render the pages.
 
