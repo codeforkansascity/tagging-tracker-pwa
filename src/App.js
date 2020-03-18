@@ -33,7 +33,9 @@ const App = () => {
 
 	// this is for the github pages deployment for the subdirectory
 	// this also gets passed down into navbar.js and bottomNavbar.js
-	const baseName = window.location.href.indexOf('localhost:') !== -1 ? "" : "tagging-tracker-pwa";
+	// if using a custom domain vs. github.pages.io/sub-directory/app, this is not needed/default to empty string
+	// const baseName = window.location.href.indexOf('localhost:') !== -1 ? "" : "tagging-tracker-pwa"; // package.json homepage should match this false value
+	const baseName = ""; // package.json homepage should be /
 
 	const searchAddress = (searchStr) => {
 		updateSearchedAddress(searchStr);
