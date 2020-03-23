@@ -68,13 +68,13 @@ You will need to build the static files with `npm run build` and then deploy the
 I have set this repo up to use GitHub Pages by the `/docs` folder. So you will build the app by `npm run build` then the static files generated will be in the `/build` folder. Then you can drag those files into the `/docs` folder and they will show up in the `taggingtracker.org` domain. The back end will be hosted in an AWS EC2 instance as a docker container. That should be accessible by `api.taggingtracker.org` once it's configured.
 
 Note: if the url has a subdirectory eg. `domain.com/sub-directory/app-base-path` that will cause problems with routes. There are two places to update:
-* `App.js` - modify `baseName`
-* `package.json` - update the `homepage`
+* `App.js` - modify the `baseName` variable
+* `package.json` - update the `homepage` url
 
 **Important** There is a `CNAME` file(no extension), this file is in the `/docs` folder which cotains the files served on GitHub pages for this repo. This file needs to be here for the unique domain. When building/replacing static content, do not delete this file, or remember to add it back. Replace all the other files though, primarily the minified/cached files that need to reflect paths.
 
 #### Note about deployment
-If you have a base domain with a sub directory eg. `https://domain.com/subdirectory/` this will be problematic because the routes of the app are only one level deep, so that `/subdirectory/` path will not be recognized as one of the routes that render the pages.
+If you have a base domain with a sub directory eg. `https://domain.com/subdirectory/` this will be problematic because the routes of the app are only one level deep, so that `/subdirectory/` path will not be recognized as one of the routes that render the pages. This is mentioned above regarding changing `App.js` and `package.json`.
 
 ### Client-side usage/installation
 Note that you can't add to homescreen from incognito. Also for iOS only Safari can add to home screen.
@@ -84,6 +84,3 @@ Here is a [TODO list](https://github.com/codeforkansascity/tagging-tracker-pwa/b
 
 ### More info
 The original PWA/Node app was developed on this monolithic repo [here](https://github.com/jdc-cunningham/codeforkc--tagging-tracker/)
-
-### Live PWA
-[Here's a link](https://byx1a2gixtvvnjwxde5y.com/) to the live PWA current build, note the gear icon, if you click on that/hit "Software Update" that is intended to purge the PWA cache and will pull from the remote endpoint to update the code of the PWA installed on the device.
