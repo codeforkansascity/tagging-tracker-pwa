@@ -1,5 +1,5 @@
 ### GitHub Pages deployment
-- [ ] consider better way eg. a dedicated directory or some kind of build process
+- [ ] consider better way eg. a dedicated repo or some kind of build process
 
 ### Flaw
 - [ ] the timestamp trick for unique images that were previously deleted by name(problematic when files have same names) doesn't work when you sync down
@@ -25,7 +25,7 @@
 - [ ] this should delete all related data as well eg. the tags, tagInfo, ownerInfo
 
 ### UX
-- [ ] typing into loggin field seems whack, probably due to state being tied to `onKeyUp`
+- [ ] typing into login field seems whack, probably due to state being tied to `onKeyUp`
 
 ### Fixing Safari
 - [ ] look into weird alignment of add tag buttons in bottom navbar
