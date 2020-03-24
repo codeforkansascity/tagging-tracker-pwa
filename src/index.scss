@@ -4,11 +4,19 @@
 
 body {
   overscroll-behavior-y: contain; // prevents pull refresh breaks soft routes
-
   display: block;
 
   * {
     box-sizing: border-box;
+  }
+
+  .css-delayed-fade-in {
+    animation: fadeIn 1s 1;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
   }
 
   #root {

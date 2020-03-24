@@ -1,24 +1,20 @@
 ### GitHub Pages deployment
-- point domain to GitHub IPs
-- test/fix the `package.json` homepage
-- investigate domain pointing to this subdirectory so it doesn't have a subdirectory
+- [ ] consider better way eg. a dedicated directory or some kind of build process
 
 ### Flaw
 - [ ] the timestamp trick for unique images that were previously deleted by name(problematic when files have same names) doesn't work when you sync down
     - because the time stamp is a temporary/local thing not maintained in remote side, may add new column to remote side
     - the main issue is not able to include key from column queries, you can do a key only column but then need to match with data/double calls
-    - in a way this is an edge case problem but arguable if a phone was reset or something... well usually camera file names are usually date-based so you would still have unique file names
+    - in a way this is an edge case problem but arguable if a phone was reset or something... well usually camera file names are date-based so you would still have unique file names
 
 ### Performance
 - regarding Safari, storage issue should not be a problem, according to this [webkit spec](https://trac.webkit.org/changeset/237700/webkit/), the size limitation for Safari is half the free space if less than 1GB or at least 500MB
-    - from a test on a computer(with ethernet with 200Mbps) it took about a minute to pull down 85MB+ of images, those are probably bigger when turned to base64
-    - NOPE it's the upload that took a while, download was only a couple seconds
 - [ ] address sync performance issue
     - [ ] large images not needed since only small thumbnails are used, however, they should be available for the click thumbnail to view full size
         - but that can be done on demand/cached locally in session
-        - address sync up and down to ignore the full size src, so it is not deleted
     - [ ] at somepoint - address the sync pagination
 - [ ] pagination issue with Dexie eg. 36 rows being pulled to load 36 images throws [max ipc length](https://stackoverflow.com/questions/52717593/maximum-ipc-message-size-exceeded) issue
+    - [ ] limit to 6 at a time
     - [ ] need to add scroll load
         - issue with this is if you were to udpate state, it would re-render the page, vs. just appending content to the current rendered view
 
@@ -29,7 +25,7 @@
 - [ ] this should delete all related data as well eg. the tags, tagInfo, ownerInfo
 
 ### UX
-- [ ] typing into logging field seems whack, probably due to state being tied to `onKeyUp`
+- [ ] typing into loggin field seems whack, probably due to state being tied to `onKeyUp`
 
 ### Fixing Safari
 - [ ] look into weird alignment of add tag buttons in bottom navbar
@@ -79,7 +75,7 @@ Unfortunately there are quite a few problems visually
 
 ### Optional
 - [ ] adding in auto complete for address search, not hard but concern is cost/necessary
-- [ ] recaptcha on login, currently using random domain and using Node... though it's on a dinky single core VPS so not sure if DDOS is a concern
+- [ ] recaptcha on login, not sure if DDOS is a concern
 - [ ] way to register accounts, currently done manually eg. on Node side
 - [ ] self location with `navigator` and then use reverse geocode to get address
 

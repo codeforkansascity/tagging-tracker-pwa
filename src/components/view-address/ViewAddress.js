@@ -39,7 +39,7 @@ const ViewAddress = (props) => {
                 }} alt="address thumbnail" className={ "address__tag-image " + getImagePreviewAspectRatioClass(localImages[index]) } />
             });
         } else {
-            return <div className="tagging-tracker__view-address-loading">
+            return <div className="tagging-tracker__view-address-loading css-delayed-fade-in">
                 <span>Loading tags...</span>
                 <img src={ ajaxLoaderGray } alt="loading tags spinner" />
             </div>;

@@ -115,7 +115,7 @@ const EditTags = (props) => {
                 </div>
             });
         } else {
-            return <div className="tagging-tracker__edit-tags-loading">
+            return <div className="tagging-tracker__edit-tags-loading css-delayed-fade-in">
                 <span>Loading tags...</span>
                 <img src={ ajaxLoaderGray } alt="loading tags spinner" />
             </div>;
