@@ -28,6 +28,7 @@ const getLocalAddresses = async (localStorage) => {
 const getLocalTags = async (localStorage) => {
     return new Promise(resolve => {
         localStorage.tags.toArray().then((tags) => {
+            console.log(tags);
             if (tags.length) {
                 resolve(tags);
             } else {
@@ -91,7 +92,15 @@ const bundleData = async (props) => {
                 }
 
                 if (tags) {
-                    bundledData['tags'] = tags;
+                    bundledData['tags'] = tags.map((tag) => {
+                        console.log(tag.thumbnail_src);
+                        const blobSrcs = Object.assign(tag, {
+                            src: tag.src,
+                            thumbnail_src: URL.createObjectURL(tag.thumbnail_src) // potential memory problems eg. revokeObjectURL
+                        });
+                        return blobSrcs;
+                    });
+                    console.log(bundledData.tags);
                 }
 
                 if (ownerInfo) {

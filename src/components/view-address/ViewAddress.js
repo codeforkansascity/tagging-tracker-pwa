@@ -4,6 +4,30 @@ import './ViewAddress.scss';
 import { getImagePreviewAspectRatioClass } from './../../utils/image';
 import ajaxLoaderGray from './../../assets/gifs/ajax-loader--gray.gif';
 
+// this is primarily due to the format juggling
+// from a plain blob to a objectURL, this is not great, temporary code/short foresight
+const checkRenderedImageUrl = (url) => {
+    console.log(url);
+    if ("type" in url) {
+        if (url.type === "Buffer") {
+            console.log(URL.createObjectURL(new Blob(url.data)));
+            return URL.createObjectURL(new Blob(url.data));
+        }
+
+        return URL.createObjectURL(url);
+    }
+
+    if (typeof url === "Blob") {
+        return URL.createObjectURL(url);
+    }
+
+    if (url.indexOf('blog:') !== -1) {
+        return url.split('/')[3];
+    }
+
+    return url;
+}
+
 const ViewAddress = (props) => {
     const history = useHistory();
     const [localImages, setLocalImages] = useState(null);
@@ -36,7 +60,7 @@ const ViewAddress = (props) => {
             return localImages.map((image, index) => {
                 console.log(image);
                 return <div key={ index } style={{
-                    backgroundImage: `url(${URL.createObjectURL(image.thumbnail_src)})`
+                    backgroundImage: `url(${checkRenderedImageUrl(image.thumbnail_src)})`
                 }} alt="address thumbnail" className={ "address__tag-image " + getImagePreviewAspectRatioClass(localImages[index]) } />
             });
         } else {

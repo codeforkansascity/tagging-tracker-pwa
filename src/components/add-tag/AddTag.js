@@ -6,7 +6,8 @@ import { base64ToBlob } from './../../utils/data';
 import { getTimeStamp } from './../../utils/date';
 
 /**
- * Note: generally photos are blobs, here it is using base64
+ * Note: generally photos are blobs, here the photos are initially using base64\
+ * but then are saved using blobs
  * 
  * Brief explanation how this works it's kind of confusing since everything is a callback of a callback
  * The bottomNavbar starts it off by setting loadCamera to true
@@ -80,7 +81,6 @@ const AddTag = (props) => {
             const loadedPhoto = loadedPhotos[i];
             const index = i;
             const thumbnailSrc = await createThumbnailSrc(loadedPhoto.src);
-            console.log(thumbnailSrc);
             const oldCanvas = document.getElementById('resize-canvas');
             if (oldCanvas) {
                 oldCanvas.remove();
@@ -91,7 +91,7 @@ const AddTag = (props) => {
                     await offlineStorage.tags.add({
                         addressId: address.addressId,
                         fileName: loadedPhoto.meta.name,
-                        src: base64ToBlob(loadedPhoto.src.split('base64,')[1], ''),
+                        src: loadedPhoto.src,
                         thumbnail_src: base64ToBlob(thumbnailSrc.split('base64,')[1], ''),
                         meta: loadedPhoto.meta,
                         timestamp: getTimeStamp()
