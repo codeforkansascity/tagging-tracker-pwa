@@ -2,14 +2,17 @@ import React, { useRef, useState, useEffect } from 'react';
 import './AddTag.scss';
 import BottomNavbar from './../../components/bottom-navbar/BottomNavbar';
 import axios from 'axios';
+import { base64ToBlob } from './../../utils/data';
 import { getTimeStamp } from './../../utils/date';
 
 /**
+ * Note: generally photos are blobs, here it is using base64
+ * 
  * Brief explanation how this works it's kind of confusing since everything is a callback of a callback
  * The bottomNavbar starts it off by setting loadCamera to true
- * Then that clicks on fileInput which if a device has a camera prompts to open the camera or show file upload(pc)
+ * Then that clicks on fileInput which if a device has a camera, prompts to open the camera or show file upload(pc)
  * Then when the fileInput changes, cameraCallback is called and the previewPhoto function is called
- * That actually renders it on page, then when the rendered image load, it has a callback to update image meta eg. width/height
+ * That actually renders it on page, then when the rendered image loads, it has a callback to update image meta eg. width/height
  * which can only be taken from a loaded <img />
  * I'm going to resize the photo with canvas for the thumbnail and potentially save storage by capping files
  * @param {*} props 
@@ -77,6 +80,7 @@ const AddTag = (props) => {
             const loadedPhoto = loadedPhotos[i];
             const index = i;
             const thumbnailSrc = await createThumbnailSrc(loadedPhoto.src);
+            console.log(thumbnailSrc);
             const oldCanvas = document.getElementById('resize-canvas');
             if (oldCanvas) {
                 oldCanvas.remove();
@@ -87,8 +91,8 @@ const AddTag = (props) => {
                     await offlineStorage.tags.add({
                         addressId: address.addressId,
                         fileName: loadedPhoto.meta.name,
-                        src: loadedPhoto.src,
-                        thumbnail_src: thumbnailSrc,
+                        src: base64ToBlob(loadedPhoto.src.split('base64,')[1], ''),
+                        thumbnail_src: base64ToBlob(thumbnailSrc.split('base64,')[1], ''),
                         meta: loadedPhoto.meta,
                         timestamp: getTimeStamp()
                     }).then((insertedId) => {
