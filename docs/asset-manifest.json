@@ -1,23 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.ddcd6f6f.chunk.css",
-    "main.js": "/static/js/main.a8f0d6a4.chunk.js",
-    "main.js.map": "/static/js/main.a8f0d6a4.chunk.js.map",
+    "main.css": "/static/css/main.86540382.chunk.css",
+    "main.js": "/static/js/main.16d9ac5c.chunk.js",
+    "main.js.map": "/static/js/main.16d9ac5c.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.3d81649f.js",
     "runtime-main.js.map": "/static/js/runtime-main.3d81649f.js.map",
-    "static/js/2.5f21f499.chunk.js": "/static/js/2.5f21f499.chunk.js",
-    "static/js/2.5f21f499.chunk.js.map": "/static/js/2.5f21f499.chunk.js.map",
+    "static/js/2.5601cba7.chunk.js": "/static/js/2.5601cba7.chunk.js",
+    "static/js/2.5601cba7.chunk.js.map": "/static/js/2.5601cba7.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.b095b79f82f303f445d2d681a1e27d49.js": "/precache-manifest.b095b79f82f303f445d2d681a1e27d49.js",
+    "precache-manifest.8f9e3a0b464008ce5f1b8cefb339da94.js": "/precache-manifest.8f9e3a0b464008ce5f1b8cefb339da94.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.ddcd6f6f.chunk.css.map": "/static/css/main.ddcd6f6f.chunk.css.map",
-    "static/js/2.5f21f499.chunk.js.LICENSE": "/static/js/2.5f21f499.chunk.js.LICENSE",
+    "static/css/main.86540382.chunk.css.map": "/static/css/main.86540382.chunk.css.map",
+    "static/js/2.5601cba7.chunk.js.LICENSE": "/static/js/2.5601cba7.chunk.js.LICENSE",
     "static/media/App.scss": "/static/media/Roboto-Thin.321de678.ttf",
     "static/media/add-square.svg": "/static/media/add-square.00e36f36.svg",
     "static/media/Navbar.scss": "/static/media/search-gray.037e04f5.svg",
     "static/media/chevron-blue.svg": "/static/media/chevron-blue.f48ced71.svg",
     "static/media/chevron.svg": "/static/media/chevron.8417a1be.svg",
     "static/media/close.svg": "/static/media/close.db093ba0.svg",
+    "static/media/delete.svg": "/static/media/delete.665926e2.svg",
     "static/media/property.svg": "/static/media/property.8673af4c.svg",
     "static/media/switch.svg": "/static/media/switch.e4b4aac4.svg",
     "static/media/tagging-tracker-logo.PNG": "/static/media/tagging-tracker-logo.4295bb0d.PNG",
@@ -26,8 +27,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.3d81649f.js",
-    "static/js/2.5f21f499.chunk.js",
-    "static/css/main.ddcd6f6f.chunk.css",
-    "static/js/main.a8f0d6a4.chunk.js"
+    "static/js/2.5601cba7.chunk.js",
+    "static/css/main.86540382.chunk.css",
+    "static/js/main.16d9ac5c.chunk.js"
   ]
 }
