@@ -22,7 +22,8 @@
 - [ ] put a warning first time opening big picture(from thumbnail click) that it will use data
 
 ### Add in way to delete addresses
-- [ ] this should delete all related data as well eg. the tags, tagInfo, ownerInfo
+- [x] this should delete all related data as well eg. the tags, tagInfo, ownerInfo
+- [x] also delete on remote side, so track what was deleted client side, update sync up, has to explicitly be from delete not empty client
 
 ### UX
 - [ ] typing into login field seems whack, probably due to state being tied to `onKeyUp`
@@ -80,7 +81,9 @@ Unfortunately there are quite a few problems visually
 - [ ] self location with `navigator` and then use reverse geocode to get address
 
 ### Research
-- [ ] using raw images over base64
+- [x] using raw images over base64
+    - I looked into this with regard to using BLOBs it is much harder to code for regarding stream juggling
+      also using `createObjectURL` has really bad quality
 - [ ] dynamic proxy based on environment, may be tied to build script altready in `package.json`
 - [ ] the mockup didn't show other options for address like state/zip so I guess it's just for KC?
 - [ ] better way with dealing collapsing height due to device soft keyboard

@@ -30,6 +30,7 @@ const App = () => {
 	const [bodyClass, setBodyClass] = useState("tagging-tracker__body"); // this will be removed when UI is updated, it's for AddTag BottomNavbar
 	const [syncApp, setSyncApp] = useState(false);
 	const [loggingOut, updateLoggingOut] = useState(false);
+	const [deletedAddresses, setDeletedAddresses] = useState([]); // I only later realized you can have a whole state object vs individual lines like this
 
 	// this is for the github pages deployment for the subdirectory
 	// this also gets passed down into navbar.js and bottomNavbar.js
@@ -252,6 +253,8 @@ const App = () => {
 							offlineStorage={offlineStorage}
 							loggingOut={loggingOut}
 							updateLoggingOut={updateLoggingOut}
+							deletedAddresses={deletedAddresses}
+							setDeletedAddresses={setDeletedAddresses}
 						/>
 						: null
 					} />

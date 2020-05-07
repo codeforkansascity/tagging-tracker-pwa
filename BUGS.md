@@ -1,0 +1,2 @@
+- [ ] the weird height thing after you type, happens in PWA on Android
+    - I think this is for the bottom navbar issue in Safari, maybe the user agent detection isn't working or the resize handler is firing incorrectly

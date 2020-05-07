@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import './BottomNavbar.scss';
 
@@ -7,10 +7,12 @@ import logoutIcon from './../../assets/icons/svgs/switch.svg';
 import property from './../../assets/icons/svgs/property.svg';
 import textDocument from './../../assets/icons/svgs/text-document.svg';
 import addSquare from './../../assets/icons/svgs/add-square.svg';
+import deleteIcon from './../../assets/icons/svgs/delete.svg';
 import ajaxLoaderGray from './../../assets/gifs/ajax-loader--gray.gif';
 import ajaxLoaderBlue from './../../assets/gifs/ajax-loader--blue.gif';
 import { syncUserData, deleteLocalData } from '../../utils/sync/sync';
 import { checkIOS, resizeAdjustHeight, addPathClassToBody } from '../../utils/misc';
+import { deleteAddress } from '../../utils/delete';
 
 const BottomNavbar = (props) => {
     const syncBtn = useRef(null);
@@ -18,6 +20,7 @@ const BottomNavbar = (props) => {
     const cameraBtn = useRef(null);
     const uploadBtn = useRef(null);
     const history = useHistory();
+    const [deletingAddress, setDeletingAddress] = useState(false);
 
     const logout = async () => {
         props.updateLoggingOut(true);
@@ -90,6 +93,27 @@ const BottomNavbar = (props) => {
         document.getElementById('add-tag-file-input').click();
     }
 
+    // this function is called after the delete process is done
+    const finishedDeletingAddress = (addressObj) => {
+        // finished deleting, go back to main addresses view
+        setDeletingAddress(false);
+        if (Object.keys(addressObj).length) {
+            const tmpArr = props.deletedAddresses;
+            tmpArr.push(addressObj.address); // the primary "key" is the address string
+            props.setDeletedAddresses(tmpArr);
+        }
+        history.push("/addresses");
+    }
+
+    const deleteAddressBtnCallback = (addressObj) => {
+        // bad naming convention
+        const shouldDeleteAddress = window.confirm("Delete " + addressObj.address + " ?");
+        if (shouldDeleteAddress) {
+            setDeletingAddress(true);
+            deleteAddress(props, addressObj, finishedDeletingAddress);
+        }
+    }
+
     const renderBottomNavbar = (routeLocation) => {
         const address = props.location.state;
         const routePath =  props.baseDir ? routeLocation.pathname.replace(props.baseDir + "/", "") : routeLocation.pathname;
@@ -127,12 +151,27 @@ const BottomNavbar = (props) => {
             case "/view-address":
             case "/edit-tags":
                 return <>
+                    <button
+                        onClick={ () => deleteAddressBtnCallback(address) }
+                        className="bottom-navbar__btn fourth"
+                        disabled={ deletingAddress ? true : false }>
+                        {deletingAddress
+                            ? <>
+                                <span>Deleting...</span>
+                                <img src={ ajaxLoaderGray } alt="deleting address spinner" />
+                            </>
+                            : <>
+                                <img src={ deleteIcon } alt="home owner button icon" />
+                                <span>Delete</span>
+                            </>
+                        }
+                    </button>
                     <Link
                         to={{ pathname: "/owner-info", state: {
                                 address: address.address,
                                 addressId: address.addressId // used for lookup
                         }}}
-                        className="bottom-navbar__btn third">
+                        className="bottom-navbar__btn fourth">
                         <img src={ property } alt="home owner button icon" />
                         <span>Owner Info</span>
                     </Link>
@@ -141,7 +180,7 @@ const BottomNavbar = (props) => {
                                 address: address.address,
                                 addressId: address.addressId // used for lookup
                         }}}
-                        className="bottom-navbar__btn third">
+                        className="bottom-navbar__btn fourth">
                         <img src={ textDocument } alt="tag info button icon" />
                         <span>Tag Info</span>
                     </Link>
@@ -150,7 +189,7 @@ const BottomNavbar = (props) => {
                             address: address.address,
                             addressId: address.addressId // used for lookup
                         }}}
-                        className="bottom-navbar__btn third">
+                        className="bottom-navbar__btn fourth">
                         <img src={ addSquare } alt="add tag icon" />
                         <span>Add Tag</span>
                     </Link>

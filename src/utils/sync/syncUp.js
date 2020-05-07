@@ -85,6 +85,7 @@ const bundleData = async (props) => {
                 const tags = await getLocalTags(localStorage);
                 const ownerInfo = await getLocalOwnerInfo(localStorage);
                 const tagInfo = await getTagInfo(localStorage);
+                const deletedAddresses = props.deletedAddresses;
 
                 if (addresses) {
                     bundledData['addresses'] = addresses;
@@ -100,6 +101,10 @@ const bundleData = async (props) => {
 
                 if (tagInfo) {
                     bundledData['tagInfo'] = tagInfo;
+                }
+
+                if (deletedAddresses) {
+                    bundledData['deletedAddresses'] = deletedAddresses;
                 }
 
                 resolve(bundledData);
@@ -118,7 +123,7 @@ export const syncUp = async (props) => {
     const bundledData = await bundleData(props);
 
     return new Promise(resolve => {
-        if (Object.keys(bundledData).length === 0 || !bundledData) {
+        if ((Object.keys(bundledData).length === 0 || !bundledData) && !props.deletedAddresses.length) {
             resolve({msg: 'No data to sync'});
         } else {
             // sync to remote server

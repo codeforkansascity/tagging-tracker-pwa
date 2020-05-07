@@ -92,7 +92,7 @@ const Navbar = (props) => {
                     address: props.location.state.address,
                     addressId: props.location.state.addressId
                 }}} className="manage-address__edit-cancel">{
-                    isAddTagPath ? "" : (isEditTagsPath ? "Cancel" : "Edit")
+                    isAddTagPath ? "" : (isEditTagsPath ? "Cancel" : "Delete")
                 }</Link>
             );
         }
