@@ -1,5 +1,6 @@
 import { syncUp } from './syncUp';
 import { syncDown } from './syncDown';
+import { formatTimeStr } from '../../utils/date';
 
 const isLocalStorageEmpty = async (props) => {
     const localStorage = props.offlineStorage;
@@ -12,7 +13,7 @@ const isLocalStorageEmpty = async (props) => {
     // so an address has to exist before you can add photos/owner/tag info
     return new Promise(resolve => {
         localStorage.addresses.count().then((count) => {
-            if (props.deletedAddresses.length || count > 0) {
+            if ((props.deletedAddresses && props.deletedAddresses.length) || count > 0) {
                 resolve(false);
             } else {
                 resolve(true);
@@ -77,6 +78,39 @@ const updateLocalAddresses = (props, remoteData) => {
     });
 }
 
+const updateLocalEvents = (props, remoteData) => {
+    const offlineStorage = props.offlineStorage;
+    return new Promise(resolve => {
+        if (!remoteData.events) {
+            resolve(true);
+        }
+
+        remoteData.events.forEach((eventRow, index) => {
+            offlineStorage.transaction('rw', offlineStorage.events, () => {
+                if (
+                    offlineStorage.events.add({
+                        addressId: eventRow.address_id,
+                        tagInfoId: eventRow.tag_info_id,
+                        tagIds: JSON.parse(eventRow.tag_ids),
+                        datetime: formatTimeStr(eventRow.date_time)
+                    }).then((insertedId) => {
+                        return true;
+                    })
+                ) {
+                    if (index === remoteData.events.length - 1) {
+                        resolve(true);
+                    }
+                } else {
+                    resolve(false);
+                }
+            })
+            .catch(e => {
+                resolve(false);
+            });
+        });
+    });
+}
+
 const updateLocalTags = (props, remoteData) => {
     const offlineStorage = props.offlineStorage;
     return new Promise(resolve => {
@@ -90,9 +124,11 @@ const updateLocalTags = (props, remoteData) => {
                 if (
                     offlineStorage.tags.add({
                         addressId: tagRow.address_id,
-                        fileName: tagMeta.name,
+                        eventId: tagRow.event_id,
+                        fileName: tagRow.filename,
                         thumbnail_src: tagRow.thumbnail_src,
-                        meta: tagMeta
+                        meta: tagMeta,
+                        datetime: tagRow.datetime
                     }).then((insertedId) => {
                         return true;
                     })
@@ -154,6 +190,7 @@ const updateLocalTagInfo = (props, remoteData) => {
                 if (
                     offlineStorage.tagInfo.add({
                         addressId: tagInfoRow.address_id,
+                        eventId: tagInfoRow.event_id,
                         formData: JSON.parse(tagInfoRow.form_data)
                     }).then((insertedId) => {
                         return true;
@@ -176,6 +213,7 @@ const updateLocalTagInfo = (props, remoteData) => {
 export const updateLocalStorageFromSync = async (props, remoteData) => {
     let noUpdateErr = true;
     noUpdateErr = await updateLocalAddresses(props, remoteData); // these if successful/not empty return true
+    noUpdateErr = await updateLocalEvents(props, remoteData);
     noUpdateErr = await updateLocalTags(props, remoteData);
     noUpdateErr = await updateLocalOwnerInfo(props, remoteData);
     noUpdateErr = await updateLocalTagInfo(props, remoteData);

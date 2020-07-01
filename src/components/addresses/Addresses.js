@@ -157,7 +157,7 @@ const Addresses = (props) => {
             return (activeAddresses.map((address, index) => {
                 return <Link
                     key={index}
-                    to={{ pathname: "/view-address", state: {
+                    to={{ pathname: "/events", state: {
                             address: address.address,
                             addressId: address.addressId // used for lookup
                     }}}

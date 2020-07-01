@@ -1,0 +1,76 @@
+@import './../../assets/styles/flex-rules.scss';
+
+.tagging-tracker__events-add-event {
+    @include flex-center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    .events-add-event__btn {
+        color: #1B89FD;
+        background-color: #EEEEEE;
+        border: 0;
+        box-shadow: 1px 1px 1px 1px #ccc;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        text-decoration: none;
+
+        &:disabled {
+            opacity: 0.6;
+        }
+    }
+}
+
+.tagging-tracker__events {
+    @include flex-hor-row-ali-str;
+    flex-direction: column;
+    width: 100%;
+}
+
+.tagging-tracker__event {
+    @include flex-hor-row-ali-str;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0.5rem;
+    border-bottom: 1px solid #E1E1E3;
+    text-decoration: none;
+    color: #383838;
+
+    #event-text {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex: 1;
+        padding: 0 0.5rem;
+        font-size: 1rem;
+        padding-top: 2px; // weird font style vertical alignment
+
+        span.text {
+            flex: 1;
+        }
+
+        span.date {
+            flex: 0;
+            white-space: nowrap;
+        }
+    }
+
+    #event-delete-btn {
+        background: transparent;
+        border: 0;
+    }
+
+    #event-delete-btn, #event-view-icon {
+        @include flex-center;
+        flex: 0;
+        padding: 0;
+
+        &, img {
+            min-width: 20px;
+            height: 20px;
+        }
+    }
+}

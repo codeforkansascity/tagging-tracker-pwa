@@ -114,15 +114,51 @@ export const deleteAddress = (props, addressObj, finishedDeletingAddress) => {
             // backup timer if all fails
             backupDelFailTimer = setTimeout(() => {
                 alert('Failed to delete address or taking longer than usual'); // what
-                finishedDeletingAddress();
+                finishedDeletingAddress(addressObj);
             }, 60000); // 1 min long
         }).catch (function (err) {
             // handle this failure correctly
             alert('failed to open local storage', err);
-            finishedDeletingAddress();
+            finishedDeletingAddress(addressObj);
         });
     } else {
         alert('Failed to delete address');
-        finishedDeletingAddress();
+        finishedDeletingAddress(addressObj);
     }
+}
+
+const getCurEvents = (db, addressId) => {
+    return new Promise((resolve, reject) => {
+        db.events.where("addressId").equals(addressId).toArray()
+            .then((tags) => {
+                resolve(tags);
+            })
+            .catch(() => {
+                resolve(null);
+            });
+    });
+}
+
+export const deleteEvent = (db, addressId, tagInfoId, deleteEventCallBack) => {
+    const tagInfo = db.events.where("tagInfoId").equals(tagInfoId);
+    tagInfo.count()
+        .then((count) => {
+            if (count) {
+                tagInfo.delete()
+                    .then(async () => {
+                        return getCurEvents(db, addressId);
+                    })
+                    .then((curEvents) => {
+                        deleteEventCallBack(curEvents);
+                    })
+                    .catch((err) => {
+                        alert('Failed to delete event');
+                        deleteEventCallBack(); // so many of these
+                    });
+            }
+        })
+        .catch((err) => {
+            alert('Failed to delete event');
+            deleteEventCallBack();
+        });
 }

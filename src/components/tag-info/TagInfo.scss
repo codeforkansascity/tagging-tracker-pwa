@@ -140,5 +140,19 @@
                 }
             }
         }
+
+        &.full-column-left {
+            flex-direction: column;
+
+            span:first-of-type {
+                width: 100%;
+            }
+
+            span:not(:first-of-type) {
+                input {
+                    flex: 0;
+                }
+            }
+        }
     }
 }

@@ -1,7 +1,3 @@
-.tagging-tracker {
-  height: 100%;
-}
-
 body {
   overscroll-behavior-y: contain; // prevents pull refresh breaks soft routes
   display: block;
@@ -23,7 +19,6 @@ body {
     display: block;
     overflow-x: hidden;
     overflow-y: auto;
-    min-height: 100%;
 
     // this is for Desktop view since the app is designed for portrait/phones
     @media screen and (min-width: 1024px) {
