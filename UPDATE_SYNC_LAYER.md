@@ -29,8 +29,15 @@ This is going to be ugly... take a bit of work to do. Generally straight forward
     - several spread out eg. on login, on sync up/down
 
 ### Misc
-- [ ] update delete event so it cleans up related tables
+- [x] update delete event so it cleans up related tables
     - left behind random tags and what not before, caused problems
+    - event tied to these local Dexie tables
+        - events
+            - creation of event
+        - tags
+            - adding tag to event
+        - tagInfo
+            - creation of event
 
 ### Random notes
 - it's `source path/to/file.sql` to import sql file through mysql cli windows when logged in

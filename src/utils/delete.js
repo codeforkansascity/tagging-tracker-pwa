@@ -139,22 +139,86 @@ const getCurEvents = (db, addressId) => {
     });
 }
 
+const deleteEventRow = async (db, tagInfoId) => {
+    const event = db.events.where("tagInfoId").equals(tagInfoId);
+    return new Promise((resolve, reject) => {
+        event.count()
+            .then((count) => {
+                if (count) {
+                    event.delete()
+                        .then(() => {
+                            resolve(true);
+                        })
+                        .catch((err) => {
+                            alert('Failed to delete data related to event');
+                            resolve(false);
+                        });
+                }
+            })
+            .catch((err) => {
+                alert('Failed to delete data related to event');
+                resolve(false);
+            });
+    });
+}
+
+const deleteEventTags = async (db, tagInfoId) => {
+    const tags = db.tags.where("eventId").equals(tagInfoId);
+    return new Promise((resolve, reject) => {
+        tags.count()
+            .then((count) => {
+                if (count) {
+                    tags.delete()
+                        .then(() => {
+                            resolve(true);
+                        })
+                        .catch((err) => {
+                            alert('Failed to delete data related to event');
+                            resolve(false);
+                        });
+                }
+            })
+            .catch((err) => {
+                alert('Failed to delete data related to event');
+                resolve(false);
+            });
+    });
+}
+
+// deletes tags/event tied to tagInfoId
+const deleteEventRelatedData = async (db, tagInfoId) => {
+    return new Promise(async (resolve, reject) => {
+        if (!await deleteEventRow(db, tagInfoId)) {
+            resolve(false);
+        }
+
+        if (!await deleteEventTags(db, tagInfoId)) {
+            resolve(false);
+        }
+
+        resolve(true);
+    });
+}
+
 export const deleteEvent = (db, addressId, tagInfoId, deleteEventCallBack) => {
-    const tagInfo = db.events.where("tagInfoId").equals(tagInfoId);
+    const tagInfo = db.tagInfo.where("eventId").equals(tagInfoId);
     tagInfo.count()
-        .then((count) => {
+        .then(async (count) => {
             if (count) {
-                tagInfo.delete()
-                    .then(async () => {
-                        return getCurEvents(db, addressId);
-                    })
-                    .then((curEvents) => {
-                        deleteEventCallBack(curEvents);
-                    })
-                    .catch((err) => {
-                        alert('Failed to delete event');
-                        deleteEventCallBack(); // so many of these
-                    });
+                if (await deleteEventRelatedData(db, tagInfoId)) {
+                    tagInfo.delete()
+                        .then(async () => {
+                            return getCurEvents(db, addressId);
+                        })
+                        .then((curEvents) => {
+                            console.log('finished deleting');
+                            deleteEventCallBack(curEvents);
+                        })
+                        .catch((err) => {
+                            alert('Failed to delete event');
+                            deleteEventCallBack(); // so many of these
+                        });
+                }
             }
         })
         .catch((err) => {

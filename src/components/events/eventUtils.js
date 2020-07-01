@@ -113,4 +113,4 @@ export const getEventIdByTagInfoId = async ( offlineStorage, tagInfoId ) => {
             console.log('failed to get event primary key', e);
         });
     });
-} 
+}
