@@ -92,7 +92,7 @@ const updateLocalEvents = (props, remoteData) => {
                         addressId: eventRow.address_id,
                         tagInfoId: eventRow.tag_info_id,
                         tagIds: JSON.parse(eventRow.tag_ids),
-                        datetime: formatTimeStr(eventRow.date_time)
+                        datetime: formatTimeStr(eventRow.datetime)
                     }).then((insertedId) => {
                         return true;
                     })
