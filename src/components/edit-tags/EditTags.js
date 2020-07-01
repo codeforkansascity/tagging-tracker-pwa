@@ -4,10 +4,10 @@ import './EditTags.scss';
 import { getImagePreviewAspectRatioClass } from './../../utils/image';
 import closeIcon from './../../assets/icons/svgs/close.svg';
 import ajaxLoaderGray from './../../assets/gifs/ajax-loader--gray.gif';
+import { truncateText } from '../../utils/misc';
 
 // TODO this is bad but poor design
 let fileNameOfImageToDelete;
-let fileTimeStamp; // these should be grouped together
 
 const EditTags = (props) => {
     const offlineStorage = props.offlineStorage;
@@ -20,25 +20,14 @@ const EditTags = (props) => {
         history.push("/addresses");
     }
 
-    const deleteImage = (addressId, fileName, fileTimeStamp) => {   
+    const deleteImage = (addressId, fileName) => {
         offlineStorage.transaction('rw', offlineStorage.tags, () => {
             if (
                 offlineStorage.tags.where("addressId").equals(addressId).toArray()
                     .then((images) => {
                         images.some((image) => { // eslint-disable-line
-
-                            if (!fileTimeStamp && image.fileName === fileName) {
+                            if (image.fileName && fileName === image.fileName) {
                                 offlineStorage.tags.where("fileName").equals(fileName).delete().then((deleteCount) => {
-                                    if (deleteCount) {
-                                        offlineStorage.tags
-                                            .where("addressId").equals(props.location.state.addressId)
-                                            .toArray().then((tags) => {
-                                                setLocalImages(tags);
-                                            });
-                                    }
-                                })
-                            } else if (image.timestamp && fileTimeStamp === image.timestamp) { // make sure comparison image has a timestamp, backwards compatability
-                                offlineStorage.tags.where("timestamp").equals(fileTimeStamp).delete().then((deleteCount) => {
                                     if (deleteCount) {
                                         offlineStorage.tags
                                             .where("addressId").equals(props.location.state.addressId)
@@ -66,19 +55,18 @@ const EditTags = (props) => {
         });
     }
 
-    const showDeletePrompt = (fileName, delFileTimeStamp) => {
+    const showDeletePrompt = (fileName) => {
         fileNameOfImageToDelete = fileName;
-        fileTimeStamp = delFileTimeStamp;
         toggleDeletePrompt(true);
     }
 
-    const renderDeletePrompt = (addressId, fileName, timestamp) => {
+    const renderDeletePrompt = (addressId, fileName) => {
         return (
             <div className={"tagging-tracker__edit-tags-delete-prompt" + (deletePrompt ? "" : " hidden")}>
-                <h4>Delete Tag {fileName}</h4>
+                <h4>Delete Tag {truncateText(fileName,40,true)}</h4>
                 <p>This will delete all information and photos of the tag</p>
                 <div className="edit-tags-delete-prompt__delete-btns">
-                    <button onClick={() => { deleteImage(addressId, fileName, timestamp) }} className="delete-btns__delete" type="button">Delete</button>
+                    <button onClick={() => { deleteImage(addressId, fileName) }} className="delete-btns__delete" type="button">Delete</button>
                     <button onClick={() => { toggleDeletePrompt(false) }} className="delete-btns__cancel" type="button">Cancel</button>
                 </div>
             </div>
@@ -86,6 +74,11 @@ const EditTags = (props) => {
     }
 
     const renderTags = () => {
+        const tagInfoId = typeof props.location.state.tagInfoId !== "undefined";
+
+        // if tagInfoId exists filter the pictures out
+        // have to save the pictures with tagInfoId first
+
         if (offlineStorage && !localImages) {
             offlineStorage.open().then(function (offlineStorage) {
                 offlineStorage.tags.toArray().then((tags) => {
@@ -109,7 +102,7 @@ const EditTags = (props) => {
                     style={{
                         backgroundImage: `url(${image.thumbnail_src})`
                     }} alt="address thumbnail"
-                    onClick={ () => { showDeletePrompt(image.meta.name, image.timestamp) } }
+                    onClick={ () => { showDeletePrompt(image.meta.name) } }
                     className={ "address__tag-image delete " + getImagePreviewAspectRatioClass(localImages[index]) }>
                     <div style={{ backgroundImage: `url(${closeIcon})` }} className="tagging-tracker__edit-tags-close-btn"></div>
                 </div>
@@ -125,7 +118,6 @@ const EditTags = (props) => {
     useEffect(() => {
         if (fileNameOfImageToDelete) {
             fileNameOfImageToDelete = "";
-            fileTimeStamp = null;
         }
         toggleDeletePrompt(false);
     }, [localImages]);
@@ -135,7 +127,7 @@ const EditTags = (props) => {
     return(
         <div className="tagging-tracker__edit-tags tagging-tracker__view-address">
             { renderTags() }
-            { renderDeletePrompt(props.location.state.addressId, fileNameOfImageToDelete, fileTimeStamp) }
+            { renderDeletePrompt(props.location.state.addressId, fileNameOfImageToDelete) }
         </div>
     )
 }

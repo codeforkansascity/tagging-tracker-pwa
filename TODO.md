@@ -1,3 +1,15 @@
+### Most recent
+- [ ] investigate warning wall "Dexie delete local database blocked" when logging out, purges local cache
+    - this isn't a huge deal since will replace with RN
+    - it also occurs in a split second/think it's a "too fast/double call" thing
+- [ ] look into proper delete, issue is uniqueness timestamp doesn't work if not preserved on remote side(sync)
+    - using date time doesn't work because it's on insert not selected for upload, so all files uploaded at the same time have same date time values
+    - right now if files have the same name they will be deleted, counting on unique file name of camera
+- [ ] flaw in unique tags... it all hinges on having unique file names, the datetime helps but it can be a problem
+
+### Most recent extra
+- [ ] add dedicated "delete events" screen, currently just rendered per row
+
 ### GitHub Pages deployment
 - [ ] consider better way eg. a dedicated repo or some kind of build process
 

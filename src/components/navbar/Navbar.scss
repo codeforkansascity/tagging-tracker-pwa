@@ -5,6 +5,7 @@
     width: 100%;
     border-bottom: 1px solid #E1E1E3;
     background-color: #fafafa;
+    z-index: 1;
 
     input {
         display: block;
@@ -125,7 +126,7 @@
         }
     }
 
-    .manage-address__edit-cancel {
+    .manage-address__edit-cancel { // not sure why this is absolutely positioned
         @include flex-center;
         flex: 1;
         text-align: right;
@@ -135,6 +136,8 @@
         background-color: transparent;
         border: 0;
         font-size: 1rem;
+        cursor: pointer;
+        z-index: 1;
 
         @media screen and (max-width: 500px) {
             position: absolute; // this is funky responsive to fit the content

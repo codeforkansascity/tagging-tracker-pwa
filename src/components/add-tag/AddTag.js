@@ -2,7 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import './AddTag.scss';
 import BottomNavbar from './../../components/bottom-navbar/BottomNavbar';
 import axios from 'axios';
-import { getTimeStamp } from './../../utils/date';
+import { getDateTime, formatTimeStr } from './../../utils/date';
+import { getTagInfoObjById } from './../events/eventUtils';
 
 /**
  * Brief explanation how this works it's kind of confusing since everything is a callback of a callback
@@ -14,6 +15,10 @@ import { getTimeStamp } from './../../utils/date';
  * I'm going to resize the photo with canvas for the thumbnail and potentially save storage by capping files
  * @param {*} props 
  */
+
+// bad quick hack
+let eventId = null;
+
 const AddTag = (props) => {
     const fileInput = useRef(null);
     const [loadCamera, triggerLoadCamera] = useState(false);
@@ -82,15 +87,16 @@ const AddTag = (props) => {
                 oldCanvas.remove();
             }
 
-            offlineStorage.transaction('rw', offlineStorage.tags, async() => {
+            offlineStorage.transaction('rw', offlineStorage.tags, async () => {
                 if (
                     await offlineStorage.tags.add({
+                        eventId,
                         addressId: address.addressId,
                         fileName: loadedPhoto.meta.name,
                         src: loadedPhoto.src,
                         thumbnail_src: thumbnailSrc,
                         meta: loadedPhoto.meta,
-                        timestamp: getTimeStamp()
+                        datetime: formatTimeStr(getDateTime()) // makes YYYY-MM-DD HH:MM:SS format for MySQL DateTime
                     }).then((insertedId) => {
                         return true;
                     })
@@ -202,6 +208,18 @@ const AddTag = (props) => {
             }
         });
     }
+
+    const getEventId = async ( offlineStorage, tagInfoId ) => {
+        const tagInfoObj = await getTagInfoObjById(offlineStorage, tagInfoId);
+        eventId = tagInfoObj ? tagInfoObj.eventId : null;
+    }
+
+    // set eventId so tags are saved against that in new structure not just saved under address
+    useEffect(() => {
+        if (props.offlineStorage && props.location.state.tagInfoId) {
+            getEventId(props.offlineStorage, props.location.state.tagInfoId);
+        }
+    }, []);
 
     // Step 1: Click on file input when clicking on Use Camera button
     useEffect(() => {

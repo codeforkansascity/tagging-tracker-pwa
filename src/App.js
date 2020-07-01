@@ -18,6 +18,8 @@ import BottomNavbar from './components/bottom-navbar/BottomNavbar';
 import Page404 from './pages/page404/Page404';
 import AddTag from './components/add-tag/AddTag';
 import DeleteTag from './components/edit-tags/EditTags';
+import Events from './components/events/Events';
+import EventTags from './components/event-tags/EventTags';
 
 const App = () => {
 	const [token, setToken] = useState("");
@@ -31,12 +33,21 @@ const App = () => {
 	const [syncApp, setSyncApp] = useState(false);
 	const [loggingOut, updateLoggingOut] = useState(false);
 	const [deletedAddresses, setDeletedAddresses] = useState([]); // I only later realized you can have a whole state object vs individual lines like this
+	const [deleteEventsMode, setDeleteEventsMode] = useState(false);
+	const [deletingEvent, setDeletingEvent] = useState(false);
 
-	// this is for the github pages deployment for the subdirectory
-	// this also gets passed down into navbar.js and bottomNavbar.js
-	// if using a custom domain vs. github.pages.io/sub-directory/app, this is not needed/default to empty string
-	// const baseName = window.location.href.indexOf('localhost:') !== -1 ? "" : "tagging-tracker-pwa"; // package.json homepage should match this false value
-	const baseName = ""; // package.json homepage should be /
+	/**
+	  * if deploying to a example.com/target with subdirectories, baseName should be updated below
+	  * otherwise leave it blank
+	  * it should match what's after the example.com/ of the build-dev domain in package.json
+	  * example: example.com/tagging-tracker -> tagging-tracker
+	  * example: example.com/sub-folder/tagging-tracker -> sub-folder/tagging-tracker
+	  * make sure package.json's build dev has the example.com/ path
+	  * 
+	  * update: for the package.json homepage path I had to set the /path-from-domain
+	  * for the software updater to work, update the .env path for the BASE path which is used for cache sync
+	  */
+	const baseName = "";
 
 	const searchAddress = (searchStr) => {
 		updateSearchedAddress(searchStr);
@@ -70,17 +81,14 @@ const App = () => {
 		};
 	}
 
-	// tags: timestamp is a random, should be unique value for deletion locally
-	// it is not used for syncing or remote upload or anything like that
-	// the reason is it is not straight forward to get an id from Dexie to delete with
-	// I think because of how the schema is structured eg. its key is based on addresses ++id
 	const setupOfflineStorage = () => {
 		const db = new Dexie("LocalImageDatabase");
-		db.version(1).stores({
+		db.version(4).stores({
 			addresses: "++id,address,lat,lng,created,updated",
-			tags: "++,fileName,addressId,meta,timestamp",
+			events: "++,addressId,tagInfoId,tagIds,datetime",
+			tags: "++,fileName,addressId,eventId,meta,datetime,src,thumbnail_src",
 			ownerInfo: "++,addressId,formData",
-			tagInfo: "++,addressId,formData"
+			tagInfo: "++,addressId,eventId,formData"
 		});
 		setOfflineStorage(db);
 	};
@@ -164,7 +172,13 @@ const App = () => {
 						modifyOwnerInfo={modifyOwnerInfo}
 						modifyTagInfo={modifyTagInfo}
 						toggleModifyTagInfo={toggleModifyTagInfo}
-						updateSoftware={updateSoftware} /> } />
+						updateSoftware={updateSoftware}
+						deletedAddresses={deletedAddresses}
+						setDeletedAddresses={setDeletedAddresses}
+						offlineStorage={offlineStorage}
+						deleteEventsMode={deleteEventsMode}
+						setDeleteEventsMode={setDeleteEventsMode} />
+				}/> {/* put this break here since it confused me having it against the line before */}
 				<div className={ bodyClass }>
 					<Switch>
 						<Route
@@ -179,14 +193,16 @@ const App = () => {
 							path={"/view-address"}
 							component={ (props) =>
 								true
-								? <ViewAddress {...props}
+								? <ViewAddress
+									{...props}
 									offlineStorage={offlineStorage} />
 								: <Redirect to="/"/> } />
 						<Route
 							path="/owner-info"
 							component={ (props) =>
 								true
-									? <OwnerInfo {...props}
+									? <OwnerInfo
+										{...props}
 										modifyOwnerInfo={modifyOwnerInfo}
 										offlineStorage={offlineStorage} />
 									: <Redirect to="/"/> }/>
@@ -194,7 +210,8 @@ const App = () => {
 							path="/tag-info"
 							component={ (props) =>
 								true
-									? <TagInfo {...props}
+									? <TagInfo
+										{...props}
 										modifyTagInfo={modifyTagInfo}
 										offlineStorage={offlineStorage} />
 									: <Redirect to="/"/> }/>
@@ -210,7 +227,6 @@ const App = () => {
 										appOnline={appOnline}
 									/>
 									: <Redirect to="/"/> }/>
-							}/>
 						<Route
 							path="/edit-tags"
 							component={ (props) =>
@@ -219,11 +235,32 @@ const App = () => {
 										{...props}
 										offlineStorage={offlineStorage} />
 									: <Redirect to="/"/> }/>
+						
+						<Route
+							path="/events"
+							component={ (props) =>
+								true
+									? <Events
+										{...props}
+										offlineStorage={offlineStorage}
+										deleteEventsMode={deleteEventsMode}
+										deletingEvent={deletingEvent}
+										setDeletingEvent={setDeletingEvent} />
+									: <Redirect to="/"/> }/>
+						<Route
+							path="/event-tags"
+							component={ (props) =>
+								true
+									? <EventTags
+										{...props}
+										offlineStorage={offlineStorage} />
+									: <Redirect to="/"/> }/>
 						<Route
 							path={["/","/addresses"]}
 							component={ (props) =>
 								true 
-									? <Addresses {...props}
+									? <Addresses
+										{...props}
 										searchedAddress={searchedAddress}
 										setShowAddressModal={setShowAddressModal}
 										showAddressModal={showAddressModal}
@@ -253,8 +290,6 @@ const App = () => {
 							offlineStorage={offlineStorage}
 							loggingOut={loggingOut}
 							updateLoggingOut={updateLoggingOut}
-							deletedAddresses={deletedAddresses}
-							setDeletedAddresses={setDeletedAddresses}
 						/>
 						: null
 					} />

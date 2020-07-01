@@ -34,6 +34,21 @@ export const getDateTime = (format = "") => {
     return `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
 }
 
+export const formatTimeStr = (timeStr) => {
+    if (timeStr.indexOf('T') !== -1) {
+        timeStr = timeStr.split('T').join(' ').split('.000Z').join('');
+    }
+
+    return timeStr;
+}
+
 export const getTimeStamp = () => {
     return Date.now();
+}
+
+// expectes hyphenated YYYY-MM-DD string
+export const flipDateFormat = ( yyyyMmDd, useHyphens ) => {
+    const divider = useHyphens ? "-" : "/";
+    const dateParts = yyyyMmDd.split('-');
+    return dateParts[1] + divider + dateParts[2] + divider + dateParts[0];
 }

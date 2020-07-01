@@ -1,5 +1,5 @@
 export const tagInfoFields = {
-    "Date of picture:": { // TODO: these should be date time with date pickers
+    "Date of entry:": { // TODO: these should be date time with date pickers
         type: "date"
     },
     "Date of abatement:": { // TODO: these should be date time with date pickers
@@ -8,10 +8,10 @@ export const tagInfoFields = {
     "Number of tags:": {
         type: "number"
     },
-    "Tag text:": {
+    "Tag text (separated by commas):": {
         type: "input"
     },
-    "Small tag text:": {
+    "Small tag text (separated by commas):": {
         type: "input"
     },
     "Square footage covered:": {
@@ -25,7 +25,7 @@ export const tagInfoFields = {
             other: "Other"
         }
     },
-    "Gang related": {
+    "Gang related:": {
         type: "radio",
         options: {
             yes: "Yes",
@@ -33,7 +33,7 @@ export const tagInfoFields = {
             other: "Other"
         }
     },
-    "Crossed out tag": {
+    "Crossed out tag:": {
         type: "radio",
         options: {
             yes: "Yes",
@@ -41,7 +41,7 @@ export const tagInfoFields = {
             other: "Other"
         }
     },
-    "Type of property": {
+    "Type of property:": {
         type: "radio",
         options: {
             commercial: "Commercial",
@@ -49,7 +49,7 @@ export const tagInfoFields = {
             public: "Public"
         }
     },
-    "Vacant property": {
+    "Vacant property:": {
         type: "radio",
         options: {
             yes: "Yes",
@@ -57,7 +57,7 @@ export const tagInfoFields = {
             other: "unknown"
         }
     },
-    "Land bank property": {
+    "Land bank property:": {
         type: "radio",
         options: {
             yes: "Yes",

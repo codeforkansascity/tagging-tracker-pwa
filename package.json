@@ -18,7 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build-dev": "set PUBLIC_URL=http://192.168.1.144/tagging-tracker-pwa&& react-scripts build",
+    "build-dev": "set PUBLIC_URL=http://example.com/sub-folder&& react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -38,5 +38,6 @@
     ]
   },
   "homepage": "/",
-  "proxy": "https://api.byx1a2gixtvvnjwxde5y.com"
+  "proxy": "https://api.byx1a2gixtvvnjwxde5y.com",
+  "display": "standalone"
 }

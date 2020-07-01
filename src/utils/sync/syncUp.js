@@ -25,6 +25,22 @@ const getLocalAddresses = async (localStorage) => {
     });
 }
 
+const getEvents = async (localStorage) => {
+    return new Promise(resolve => {
+        localStorage.events.toArray().then((events) => {
+            if (events.length) {
+                resolve(events);
+            } else {
+                resolve(false);
+            }
+        })
+        .catch((err) => {
+            console.log('sync events err', err);
+            resolve(false);
+        });
+    });
+}
+
 const getLocalTags = async (localStorage) => {
     return new Promise(resolve => {
         localStorage.tags.toArray().then((tags) => {
@@ -82,6 +98,7 @@ const bundleData = async (props) => {
         localStorage.addresses.count().then(async (count) => {
             if (count > 0) {
                 const addresses = await getLocalAddresses(localStorage);
+                const events = await getEvents(localStorage);
                 const tags = await getLocalTags(localStorage);
                 const ownerInfo = await getLocalOwnerInfo(localStorage);
                 const tagInfo = await getTagInfo(localStorage);
@@ -89,6 +106,10 @@ const bundleData = async (props) => {
 
                 if (addresses) {
                     bundledData['addresses'] = addresses;
+                }
+
+                if (events) {
+                    bundledData['events'] = events;
                 }
 
                 if (tags) {

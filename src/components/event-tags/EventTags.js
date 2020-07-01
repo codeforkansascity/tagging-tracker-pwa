@@ -1,35 +1,45 @@
-import React, { useState  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import './ViewAddress.scss';
+import './EventTags.scss';
+import './../view-address/ViewAddress.scss';
 import { getImagePreviewAspectRatioClass } from './../../utils/image';
 import ajaxLoaderGray from './../../assets/gifs/ajax-loader--gray.gif';
 import { flipDateFormat } from './../../utils/date';
+import { getTagInfoObjById } from './../events/eventUtils';
 
-const ViewAddress = (props) => {
+const EventTags = (props) => {
     const history = useHistory();
     const [localImages, setLocalImages] = useState(null);
-    
+    const [eventId, setEventId] = useState(null);
+
     if (typeof props.location.state === "undefined") {
         history.push("/addresses");
     }
 
     const renderDateRow = ( dispDate ) => {
-        return <h3
-            className="tagging-tracker__view-address-tag-date-group">
-            <span>Event</span> { flipDateFormat(dispDate, false) }
-        </h3>;
+        return null;
+    }
+
+    const getEventId = async ( offlineStorage, tagInfoId ) => {
+        const tagInfoObj = await getTagInfoObjById(offlineStorage, tagInfoId);
+        const eventId = tagInfoObj ? tagInfoObj.eventId : null;
+
+        if (eventId) {
+            setEventId(eventId);
+        }
     }
 
     const renderTags = () => {
         const db = props.offlineStorage;
+        const tagInfoId = props.location.state.tagInfoId;
 
-        if (db && !localImages) {
+        if (db && eventId && !localImages) {
             db.open().then(function (db) {
                 db.tags.toArray().then((tags) => {
                     !tags.length
                         ? setLocalImages({})
                         :  db.tags
-                        .where("addressId").equals(props.location.state.addressId)
+                        .where("eventId").equals(eventId)
                         .toArray().then((tags) => {
                             // sort tags by descending date
                             // straight outta SO: https://stackoverflow.com/questions/10123953/how-to-sort-an-array-by-a-date-property
@@ -85,11 +95,17 @@ const ViewAddress = (props) => {
         }
     }
 
+    useEffect(() => {
+        if (props.offlineStorage && props.location.state.tagInfoId) {
+            getEventId(props.offlineStorage, props.location.state.tagInfoId);
+        }
+    }, []);
+
     return(
-        <div className="tagging-tracker__view-address">
+        <div className="tagging-tracker__event-tags tagging-tracker__view-address">
             { renderTags() }
         </div>
     )
 }
 
-export default ViewAddress;
+export default EventTags;

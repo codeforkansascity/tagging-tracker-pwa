@@ -9,7 +9,21 @@ export const checkIOS = () => {
     const iOS = /(iPhone|iPod|iPhone Simulator|iPod Simulator|iPad|iPad Simulator|Macintosh)/g.test(navigator.userAgent);
 
     if (iOS) {
+        document.querySelector('.tagging-tracker__body').classList = 'tagging-tracker__body'; // clear state
         document.querySelector('.tagging-tracker__bottom-navbar').classList.add('iOS');
+        document.querySelector('.tagging-tracker__body').classList.add('iOS');
+
+        if (window.location.href.indexOf('events') !== -1 || window.location.href.indexOf('event-tags') !== -1) {
+            document.querySelector('.tagging-tracker__body').classList.add('less');
+        }
+
+        if (window.location.href.indexOf('tag-info') !== -1) {
+            document.querySelector('.tagging-tracker__body').classList.add('toggled-navbar');
+        }
+
+        if (window.location.href.indexOf('add-tag') !== -1) {
+            document.querySelector('.tagging-tracker__body').classList.add('add-tag');
+        }
     }
 }
 
@@ -22,7 +36,22 @@ export const resizeAdjustHeight = () => {
 export const addPathClassToBody = (props) => {
     const curPath = props.location.pathname;
 
-    if (curPath !== "/addresses" || curPath !== "/") {
-        document.querySelector('.tagging-tracker__body').style.maxHeight = (window.innerHeight - 52) + "px";
+    // this is bad direct dom manipulation
+    // if (curPath === "/tag-info") {
+    //     if (!document.querySelector('.tagging-tracker__body').classList.contains('full-body-height')) {
+    //         document.querySelector('.tagging-tracker__body').classList += " full-body-height";
+    //     }
+    // }
+
+    // if (curPath !== "/addresses" || curPath !== "/") {
+    //     document.querySelector('.tagging-tracker__body').style.maxHeight = (window.innerHeight - 52) + "px";
+    // }
+}
+
+export const truncateText = (text, length, ellipsis) => {
+    if (!text) {
+        return "undefined string";
     }
+
+    return text.substr(0, length) + ((ellipsis && text.length > length) ? '...' : '');
 }
