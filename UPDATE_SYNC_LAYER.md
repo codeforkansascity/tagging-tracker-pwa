@@ -25,6 +25,8 @@ This is going to be ugly... take a bit of work to do. Generally straight forward
     - reload systemd
 - [ ] update seed file to reflect new db
     - events, tags, tag_info
+- [ ] simplify environment switching(all the localhost checks)
+    - several spread out eg. on login, on sync up/down
 
 ### Misc
 - [ ] update delete event so it cleans up related tables
