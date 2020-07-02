@@ -1,2 +1,4 @@
 - [ ] the weird height thing after you type, happens in PWA on Android
     - I think this is for the bottom navbar issue in Safari, maybe the user agent detection isn't working or the resize handler is firing incorrectly
+- [ ] top navbar, back link is too long/can click even if not trying to
+    - requires restructuring, can't think of simple CSS fix, not worth it, need to refactor/build new version
