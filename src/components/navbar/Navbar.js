@@ -145,7 +145,7 @@ const Navbar = (props) => {
                     >Delete</button>
                 )
                 : (
-                <Link to={{ pathname: "/edit-tags", state: { 
+                <Link to={{ pathname: "/edit-tags", state: {
                     address: props.location.state.address,
                     addressId: props.location.state.addressId,
                     tagInfoId: props.location.state.tagInfoId,

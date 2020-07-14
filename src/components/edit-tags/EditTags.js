@@ -5,6 +5,7 @@ import { getImagePreviewAspectRatioClass } from './../../utils/image';
 import closeIcon from './../../assets/icons/svgs/close.svg';
 import ajaxLoaderGray from './../../assets/gifs/ajax-loader--gray.gif';
 import { truncateText } from '../../utils/misc';
+import { getTagInfoObjById } from './../events/eventUtils';
 
 // TODO this is bad but poor design
 let fileNameOfImageToDelete;
@@ -15,6 +16,7 @@ const EditTags = (props) => {
     const [localImages, setLocalImages] = useState(null);
     const [deletePrompt, toggleDeletePrompt] = useState(false);
     const [deleteInProgress, setDeleteInProgress] = useState(false); // eslint-disable-line
+    const [eventId, setEventId] = useState(null);
     
     if (typeof props.location.state === "undefined") {
         history.push("/addresses");
@@ -79,13 +81,13 @@ const EditTags = (props) => {
         // if tagInfoId exists filter the pictures out
         // have to save the pictures with tagInfoId first
 
-        if (offlineStorage && !localImages) {
+        if (offlineStorage && !localImages && eventId) {
             offlineStorage.open().then(function (offlineStorage) {
                 offlineStorage.tags.toArray().then((tags) => {
                     !tags.length
                         ? setLocalImages([])
                         :  offlineStorage.tags
-                            .where("addressId").equals(props.location.state.addressId)
+                            .where("eventId").equals(eventId)
                             .toArray().then((tags) => {
                                 setLocalImages(tags);
                             });
@@ -114,6 +116,21 @@ const EditTags = (props) => {
             </div>;
         }
     }
+
+    const getEventId = async ( offlineStorage, tagInfoId ) => {
+        const tagInfoObj = await getTagInfoObjById(offlineStorage, tagInfoId);
+        const eventId = tagInfoObj ? tagInfoObj.eventId : null;
+
+        if (eventId) {
+            setEventId(eventId);
+        }
+    }
+
+    useEffect(() => {
+        if (props.offlineStorage && props.location.state.tagInfoId) {
+            getEventId(props.offlineStorage, props.location.state.tagInfoId);
+        }
+    }, []);
 
     useEffect(() => {
         if (fileNameOfImageToDelete) {
