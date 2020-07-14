@@ -1,3 +1,6 @@
+### Update
+This is outdated, also moving to React Native now
+
 ### Most recent
 - [ ] investigate warning wall "Dexie delete local database blocked" when logging out, purges local cache
     - this isn't a huge deal since will replace with RN
