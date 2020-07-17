@@ -4,10 +4,10 @@ This is an alternative take on the front end for the Tagging Tracker project. Th
 ### Demo
 
 #### Add PWA to your device
-![Android emulator adding PWA by Chrome browser](./pin-pwa-to-device.gif)
+<img alt="Android emulator adding PWA by Chrome browser" width="350px" src="/pin-pwa-to-device.gif" />
 
 #### Example workflow with basic data
-![Functionality walk through](./pwa-app-functionality-click-through-07-17-2020.gif)
+<img alt="Functionality walk through" width="450px" src="./pwa-app-functionality-click-through-07-17-2020.gif" />
 
 ### Try this app
 The static build of this PWA front end is hosted [here](https://codeforkc.org/tagging-tracker-pwa/), the GitHub pages for this repo.
