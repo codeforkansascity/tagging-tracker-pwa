@@ -6,8 +6,8 @@
 // but it seems if you don't have overflow/shorter in height then the bottom navbar will be ontop of the Safari bottom menu
 // I guess Mac has this issue too? That's what I see in Sauce Labs simulator
 export const checkIOS = () => {
-    const iOS = /(iPhone|iPod|iPhone Simulator|iPod Simulator|iPad|iPad Simulator|Macintosh)/g.test(navigator.userAgent);
-
+    // const iOS = /(iPhone|iPod|iPhone Simulator|iPod Simulator|iPad|iPad Simulator|Macintosh)/g.test(navigator.userAgent);
+    const iOS = true;
     if (iOS) {
         document.querySelector('.tagging-tracker__body').classList = 'tagging-tracker__body'; // clear state
         document.querySelector('.tagging-tracker__bottom-navbar').classList.add('iOS');
