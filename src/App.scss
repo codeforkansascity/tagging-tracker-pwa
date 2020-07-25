@@ -64,25 +64,25 @@
 
 	&.iOS {
 		@media screen and (max-width: 600px) {
-			max-height: calc(100% - 275px); // 235 alternate
+			max-height: calc(100% - 45px); // 235 alternate // 45px is the bottom navbar
 		}
 	}
 
 	&.iOS.less {
 		@media screen and (max-width: 600px) {
-			max-height: calc(100% - 235px); // 235 alternate
+			max-height: calc(100% - 45px); // 235 alternate
 		}
 	}
 
 	&.iOS.toggled-navbar {
 		@media screen and (max-width: 600px) {
-			max-height: calc(100% - 238px); // 235 alternate
+			max-height: calc(100% - 45px); // 235 alternate
 		}
 	}
 
 	&.iOS.add-tag {
 		@media screen and (max-width: 600px) {
-			max-height: calc(100% - 191px); // 235 alternate
+			max-height: calc(100% - 45px); // 235 alternate
 		}
 	}
 }
