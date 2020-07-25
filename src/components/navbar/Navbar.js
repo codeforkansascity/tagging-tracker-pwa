@@ -20,7 +20,7 @@ const Navbar = (props) => {
         let navTitle = "";
 
         if (path === "/tag-info") {
-            navTitle = props.location.state.eventTitle;
+            navTitle = props.location.state.eventTitle ? props.location.state.eventTitle : "Create event";
         } else if (path === "/owner-info") {
             navTitle = "Owner Information";
         } else if (path === "/events") {

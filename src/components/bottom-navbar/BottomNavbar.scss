@@ -96,6 +96,11 @@
                 }
             }
         }
+        
+        &.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
 
         img {
             width: 1.25rem;

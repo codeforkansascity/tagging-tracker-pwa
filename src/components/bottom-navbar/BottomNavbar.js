@@ -264,8 +264,12 @@ const BottomNavbar = (props) => {
                 const eventTitle = props.location.state.eventTitle;
                 const tagInfoId = props.location.state.tagInfoId;
                 return <>
-                    <button onClick= { () => confirmDeleteEvent(eventTitle, address.addressId, tagInfoId, doneDeletingEvent) } ref={ syncBtn } className="bottom-navbar__btn fourth"
-                        type="button" disabled={ props.appOnline ? false : true }>
+                    <button
+                        onClick= { () => confirmDeleteEvent(eventTitle, address.addressId, tagInfoId, doneDeletingEvent) }
+                        ref={ syncBtn }
+                        className="bottom-navbar__btn fourth"
+                        type="button"
+                        disabled={ tagInfoId ? false : true }>
                         {deletingEvent
                             ? <>
                                 <span>Deleting...</span>
@@ -295,7 +299,8 @@ const BottomNavbar = (props) => {
                             tagInfoId, // unique per event
                             eventTitle
                         }}}
-                        className={"bottom-navbar__btn fourth " + (eventTagsPath ? "active" : "") }>
+                        className={"bottom-navbar__btn fourth " + (eventTagsPath ? "active" : "") + (tagInfoId ? "" : "disabled")}
+                        disabled={ tagInfoId ? false : true }>
                             <img src={ photo } alt="events button icon" />
                             <span>Pictures</span>
                     </Link>
@@ -306,7 +311,7 @@ const BottomNavbar = (props) => {
                             tagInfoId, // unique per event
                             eventTitle
                         }}}
-                        className="bottom-navbar__btn fourth">
+                        className={"bottom-navbar__btn fourth "  + (tagInfoId ? "" : "disabled")}>
                         <img src={ addSquare } alt="add tag icon" />
                         <span>Add Picture</span>
                     </Link>
