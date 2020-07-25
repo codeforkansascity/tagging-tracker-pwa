@@ -19,8 +19,6 @@ const Navbar = (props) => {
     const getNavTitle = (path, address) => {
         let navTitle = "";
 
-        console.log(props);
-
         if (path === "/tag-info") {
             navTitle = props.location.state.eventTitle;
         } else if (path === "/owner-info") {
