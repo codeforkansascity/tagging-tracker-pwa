@@ -5,7 +5,6 @@
 	align-items: flex-start;
 	justify-content: flex-start;
 	height: 100vh;
-	border: 1px solid red;
 
 	// attempt for iOS due to bottom navbar taking up height from browser/overlapping footer
 	// _::-webkit-full-page-media, _:future, :root .safari_only {
@@ -51,7 +50,6 @@
 	// max-height: calc(100% - 123px); // TODO: not good set by dynamic css js, useEffect assuming window.innerHeight works
 	overflow-x: hidden;
 	overflow-y: auto;
-	border: 1px solid blue;
 
 	// TODO: this is here because of the state management issues with add-tag
     // and the image preview/relationship with bottomNavbar(what causes actions)
