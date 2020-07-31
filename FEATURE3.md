@@ -1,6 +1,6 @@
 ### Feature Requests
 - [ ] (easy) extra fields on event screen(tag info)
-- [ ] (easy) add address autocomplete
+- [x] (easy) add address autocomplete
   - assuming using Google Maps(may cost money, may be free)
 - [ ] (hard) upload multiple photos
   - requires front end and backend work
