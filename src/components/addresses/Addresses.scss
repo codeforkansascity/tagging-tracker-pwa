@@ -50,11 +50,17 @@
         text-align: center;
         font-size: 0.875rem;
         padding: 0 1rem;
+
+        &.disclaimer-text {
+            font-size: 0.65rem;
+            color: red;
+        }
     }
 
     input {
         margin-top: 1rem;
         width: calc(100% - 2rem);
+        border-top: 1px solid #CECDD0;
     }
 }
 

@@ -11,6 +11,7 @@ const Addresses = (props) => {
     const [addAddressProcessing, setAddAddressProcessing] = useState(false);
     const [recentAddresses] = useState([]); // what is the difference between this and activeAddresses
     const [activeAddresses, setActiveAddresses] = useState(null);
+    const { token } = props;
     let autoComplete;
     
     // this search may need to get restructured depending on what's available/important to search against
@@ -144,6 +145,8 @@ const Addresses = (props) => {
             <div className="tagging-tracker__address-input-modal">
                 <h3>Create New Address</h3>
                 <p>Please enter a new address that you want to create</p>
+                { token ? null :
+                    <p class="disclaimer-text">Note: login required for address autocomplete</p> }
                 <input type="text" ref={ newAddressInput } id="autocomplete" />
                 <div className="tagging-tracker__address-input-modal-btns">
                     <button type="button" ref={ cancelAddAddressBtn } onClick={ () => {props.toggleAddressModal(false)} } >CANCEL</button>
@@ -205,7 +208,7 @@ const Addresses = (props) => {
         }
 
         // Google address autocomplete
-        if (props.showAddressModal) {
+        if (props.showAddressModal && token) {
             autoComplete = new google.maps.places.Autocomplete(newAddressInput.current, {"types": ["geocode"]})
             autoComplete.addListener('place_changed', suggestedAddressPicked);
         }

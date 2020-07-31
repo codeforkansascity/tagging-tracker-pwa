@@ -24,6 +24,7 @@ const BottomNavbar = (props) => {
     const cameraBtn = useRef(null);
     const uploadBtn = useRef(null);
     const history = useHistory();
+    const { token } = props;
 
     const [deletingEvent, setDeletingEvent] = useState(false);
 
@@ -48,7 +49,6 @@ const BottomNavbar = (props) => {
         }
 
         if (!props.token) {
-            alert('Please login to sync');
             history.push("/login");
             return;
         }
@@ -139,8 +139,8 @@ const BottomNavbar = (props) => {
                                 <img src={ ajaxLoaderGray } alt="syncing spinner" />
                             </>
                             : <>
-                                <img src={ syncIcon } alt="sync button icon" />
-                                <span>Sync</span>
+                                { token ? <img src={ syncIcon } alt="sync button icon" /> : null }
+                                <span>{ token ? "Sync" : "Login" }</span>
                             </>
                         }
                     </button>
