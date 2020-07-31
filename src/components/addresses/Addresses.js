@@ -146,11 +146,11 @@ const Addresses = (props) => {
                 <h3>Create New Address</h3>
                 <p>Please enter a new address that you want to create</p>
                 { token ? null :
-                    <p class="disclaimer-text">Note: login required for address autocomplete</p> }
+                    <p className="disclaimer-text">Note: login required for address autocomplete</p> }
                 <input type="text" ref={ newAddressInput } id="autocomplete" />
                 <div className="tagging-tracker__address-input-modal-btns">
                     <button type="button" ref={ cancelAddAddressBtn } onClick={ () => {props.toggleAddressModal(false)} } >CANCEL</button>
-                    <button type="button" ref={ createAddressBtn } onClick={ checkAddressExists } disabled={ addAddressProcessing ? true : false }>CREATE</button>
+                    <button type="button" ref={ createAddressBtn } onClick={ () => checkAddressExists() } disabled={ addAddressProcessing ? true : false }>CREATE</button>
                 </div>
             </div>
         ) : null;
