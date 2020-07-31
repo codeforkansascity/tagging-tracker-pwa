@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+/* global google */
 import { Link } from 'react-router-dom';
 import './Addresses.scss';
 import rightArrow from './../../assets/icons/svgs/chevron.svg';
@@ -8,8 +9,9 @@ const Addresses = (props) => {
     const cancelAddAddressBtn = useRef(null);
     const createAddressBtn = useRef(null);
     const [addAddressProcessing, setAddAddressProcessing] = useState(false);
-    const [recentAddresses] = useState([]);
+    const [recentAddresses] = useState([]); // what is the difference between this and activeAddresses
     const [activeAddresses, setActiveAddresses] = useState(null);
+    let autoComplete;
     
     // this search may need to get restructured depending on what's available/important to search against
     // versus the obvious address field, but tag search is something based on the tag text
@@ -58,8 +60,9 @@ const Addresses = (props) => {
             });
     }
 
-    const checkAddressExists = () => {
-        const addressStr = newAddressInput.current.value;
+    const checkAddressExists = (autoCompleteAddress) => {
+        // this is here because the address from autocomplete in the input field has the full address eg. includes city/state
+        const addressStr = autoCompleteAddress ? autoCompleteAddress : newAddressInput.current.value;
         const offlineStorage = props.offlineStorage;
 
         offlineStorage.open().then((offlineStorage) => {
@@ -141,7 +144,7 @@ const Addresses = (props) => {
             <div className="tagging-tracker__address-input-modal">
                 <h3>Create New Address</h3>
                 <p>Please enter a new address that you want to create</p>
-                <input type="text" ref={ newAddressInput } />
+                <input type="text" ref={ newAddressInput } id="autocomplete" />
                 <div className="tagging-tracker__address-input-modal-btns">
                     <button type="button" ref={ cancelAddAddressBtn } onClick={ () => {props.toggleAddressModal(false)} } >CANCEL</button>
                     <button type="button" ref={ createAddressBtn } onClick={ checkAddressExists } disabled={ addAddressProcessing ? true : false }>CREATE</button>
@@ -168,6 +171,13 @@ const Addresses = (props) => {
         }
     }
 
+    const suggestedAddressPicked = () => {
+        const addressObj = autoComplete.getPlace();
+        if ('name' in addressObj) {
+            checkAddressExists(addressObj.name);
+        }
+    }
+
     // focus
     useEffect(() => {
         if (props.showAddressModal) {
@@ -190,8 +200,14 @@ const Addresses = (props) => {
     useEffect(() => {
         if (props.searchedAddress.length) {
             searchAddresses(props.searchedAddress);
-        } else if (props.offlineStorage) {
+        } else if (props.offlineStorage && (!recentAddresses || !activeAddresses)) {
             loadRecentAddresses(); // TODO unmounted state issue
+        }
+
+        // Google address autocomplete
+        if (props.showAddressModal) {
+            autoComplete = new google.maps.places.Autocomplete(newAddressInput.current, {"types": ["geocode"]})
+            autoComplete.addListener('place_changed', suggestedAddressPicked);
         }
     });
 
