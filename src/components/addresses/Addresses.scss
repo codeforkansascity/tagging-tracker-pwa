@@ -31,6 +31,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
+    display: flex;
     transform: translate(-50%, -50%);
     background-color: #F9F9F9;
     padding: 1rem 0;
@@ -58,10 +59,24 @@
     }
 
     input {
-        margin-top: 1rem;
-        width: calc(100% - 2rem);
         border-top: 1px solid #CECDD0;
+        flex: 1;
     }
+}
+
+.tagging-tracker__address-input-row {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin-top: 1rem;
+}
+
+.address-input-row___location-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.25rem;
+    flex: 0;
 }
 
 .tagging-tracker__address-input-modal-btns {
@@ -85,4 +100,28 @@
             opacity: 0.6;
         }
     }
+}
+
+.tagging-tracker__reverse-geocoded-addresses {
+    max-height: 200px;
+    overflow: hidden auto;
+}
+
+.tagging-tracker__reverse-geocoded-address {
+    padding: 0.5rem;
+
+    &:not(:first-of-type) {
+        border-top: 1px solid #CECDD0;
+    }
+}
+
+.tagging-tracker__reverse-geocode-back-btn {
+    transform: translate(-50%);
+    margin: 0.5rem 0;
+    margin-left: 50%;
+    color: #1B89FD;
+    background-color: white;
+    border: 1px solid #282828;
+    border-radius: 2px;
+    padding: 0.25rem 0.5rem;
 }

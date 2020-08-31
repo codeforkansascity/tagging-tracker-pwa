@@ -1,8 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
+import axios from 'axios';
 /* global google */
 import { Link } from 'react-router-dom';
 import './Addresses.scss';
 import rightArrow from './../../assets/icons/svgs/chevron.svg';
+import location from './../../assets/icons/svgs/location.svg';
 
 const Addresses = (props) => {
     const newAddressInput = useRef(null);
@@ -11,6 +13,7 @@ const Addresses = (props) => {
     const [addAddressProcessing, setAddAddressProcessing] = useState(false);
     const [recentAddresses] = useState([]); // what is the difference between this and activeAddresses
     const [activeAddresses, setActiveAddresses] = useState(null);
+    const [revGeocodedAdresses, setRevGeocodedAddresses] = useState(null);
     const { token } = props;
     let autoComplete;
     
@@ -140,18 +143,90 @@ const Addresses = (props) => {
         }
     }
 
+    const reverseGeocode = () => {
+        // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API
+        // https://developers.google.com/maps/documentation/javascript/geocoding
+        const success = (position) => {
+            const navLat = position.coords.latitude;
+            const navLong = position.coords.longitude;
+            const geocoder = new google.maps.Geocoder;
+            const latlng = {lat: parseFloat(navLat), lng: parseFloat(navLong)};
+            geocoder.geocode({'location': latlng}, function(results, status) {
+              if (status === 'OK') {
+                if (results[0]) {
+                  setRevGeocodedAddresses(results);
+                } else {
+                  alert('No address found');
+                }
+              } else {
+                alert('Failed to find an address');
+              }
+            });
+        }
+
+        const error = () => {
+            alert('Failed to determine your location');
+        }
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(success, error);
+        } else {
+            alert('Geolocation not supported on your browser');
+        }
+    }
+
+    const generateAddressStr = (revGeocodedAddressObj) => {
+        // should type check this eg. basic exists
+        const addressComponents = revGeocodedAddressObj.address_components;
+        return `${addressComponents[0] ? addressComponents[0].long_name : ""}
+             ${addressComponents[1] ? addressComponents[1].short_name : ""},
+              ${addressComponents[2] ? addressComponents[2].long_name : ""}`;
+    }
+
+    const pickRevGeocodedAddress = (addressStr) => {
+        checkAddressExists(addressStr);
+        setRevGeocodedAddresses(null);
+    }
+
     const addNewAddressModal = (showModal) => {
         return showModal ? (
             <div className="tagging-tracker__address-input-modal">
-                <h3>Create New Address</h3>
-                <p>Please enter a new address that you want to create</p>
+                <h3>{ revGeocodedAdresses ? 'Select Address' : 'Create New Address' }</h3>
+                <p>{ revGeocodedAdresses ? null : 'Please enter a new address that you want to create' }</p>
                 { token ? null :
                     <p className="disclaimer-text">Note: login required for address autocomplete</p> }
-                <input type="text" ref={ newAddressInput } id="autocomplete" />
-                <div className="tagging-tracker__address-input-modal-btns">
-                    <button type="button" ref={ cancelAddAddressBtn } onClick={ () => {props.toggleAddressModal(false)} } >CANCEL</button>
-                    <button type="button" ref={ createAddressBtn } onClick={ () => checkAddressExists() } disabled={ addAddressProcessing ? true : false }>CREATE</button>
-                </div>
+                { revGeocodedAdresses
+                    ? <div className="tagging-tracker__reverse-geocoded-address-set">
+                        <div className="tagging-tracker__reverse-geocoded-addresses">
+                            {
+                                revGeocodedAdresses.map((address) => {
+                                    return <div
+                                        className="tagging-tracker__reverse-geocoded-address"
+                                        onClick={ () => pickRevGeocodedAddress(generateAddressStr(address)) }>
+                                        {
+                                            generateAddressStr(address)
+                                        }
+                                    </div>
+                                })
+                            }
+                        </div>
+                        <button className="tagging-tracker__reverse-geocode-back-btn" type="button" onClick={ () => setRevGeocodedAddresses(null) }>Back</button>
+                    </div>
+                    : <><div className="tagging-tracker__address-input-row">
+                        { !token
+                            ? null
+                            : <img
+                                className="address-input-row___location-icon"
+                                src={ location }
+                                alt="location icon"
+                                onClick={ () => reverseGeocode() } /> }
+                        <input type="text" ref={ newAddressInput } id="autocomplete" />
+                    </div>
+                    <div className="tagging-tracker__address-input-modal-btns">
+                        <button type="button" ref={ cancelAddAddressBtn } onClick={ () => {props.toggleAddressModal(false)} } >CANCEL</button>
+                        <button type="button" ref={ createAddressBtn } onClick={ () => checkAddressExists() } disabled={ addAddressProcessing ? true : false }>CREATE</button>
+                    </div></>
+                }
             </div>
         ) : null;
     }
@@ -217,7 +292,7 @@ const Addresses = (props) => {
     return(
         <div className="tagging-tracker__addresses">
             { renderActiveAddresses() }
-            { addNewAddressModal(props.showAddressModal) }
+            { addNewAddressModal((props.showAddressModal || revGeocodedAdresses)) }
         </div>
     )
 }
