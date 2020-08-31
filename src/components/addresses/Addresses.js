@@ -179,8 +179,7 @@ const Addresses = (props) => {
         // should type check this eg. basic exists
         const addressComponents = revGeocodedAddressObj.address_components;
         return `${addressComponents[0] ? addressComponents[0].long_name : ""}
-             ${addressComponents[1] ? addressComponents[1].short_name : ""},
-              ${addressComponents[2] ? addressComponents[2].long_name : ""}`;
+             ${addressComponents[1] ? addressComponents[1].short_name : ""}`;
     }
 
     const pickRevGeocodedAddress = (addressStr) => {
