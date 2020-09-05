@@ -144,7 +144,7 @@ const BottomNavbar = (props) => {
                             </>
                         }
                     </button>
-                    <button ref={ logoutBtn } onClick={ logout } className="bottom-navbar__btn half" type="button">
+                    {token ? <button ref={ logoutBtn } onClick={ logout } className="bottom-navbar__btn half" type="button">
                         {props.loggingOut
                             ? <>
                                 <span>Logging out...</span>
@@ -155,7 +155,8 @@ const BottomNavbar = (props) => {
                                 <span>Logout</span>
                             </>
                         }
-                    </button>
+                    </button> : null}
+                    
                 </>
             case "/view-address":
             case "/edit-tags":

@@ -19,6 +19,34 @@ import { getTagInfoObjById } from './../events/eventUtils';
 // bad quick hack
 let eventId = null;
 
+// create function which returns resolved promise
+// with data:base64 string
+function getBase64(file) {
+    const reader = new FileReader();
+
+    return new Promise(resolve => {
+        reader.onload = ev => {
+            resolve(ev.target.result);
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+// Taken from here: https://stackoverflow.com/a/54559514/3341620
+async function fileListToBase64(fileList) {
+    // here will be array of promisified functions
+    const promises = [];
+
+    // loop through fileList with for loop
+    for (let i = 0, len = fileList.length; i < len; i++) {
+        promises.push(getBase64(fileList[i]));
+    }
+
+    // array with base64 strings
+    return await Promise.all(promises);
+}
+
 const AddTag = (props) => {
     const fileInput = useRef(null);
     const [loadCamera, triggerLoadCamera] = useState(false);
@@ -30,15 +58,12 @@ const AddTag = (props) => {
     // https://hacks.mozilla.org/2011/01/how-to-develop-a-html5-image-uploader/
     const scaleImage = (resolve, img) => {
         // figure out canvas height based on desired resize dimensions
-        const imgAspectRatio = (img.width / img.height >= 1) ? 'landscape' : 'portrait';
         let newImageWidth = 300;
         let newImageHeight = 300;
 
-        if (imgAspectRatio === 'landscape') {
-            const newImageWidth = 300;
+        if (img.width / img.height >= 1) {
             newImageHeight = ((newImageWidth * img.height) / img.width); // round?
         } else {
-            const newImageHeight = 300;
             newImageWidth = ((newImageHeight * img.width) / img.height); // round?
         }
         
@@ -155,31 +180,44 @@ const AddTag = (props) => {
     // Step 2: when file input changes, check if file/photo selected
     const cameraCallback = (fileInput) => {
         if (fileInput.files.length) {
-			previewPhoto(fileInput);
+			previewPhotos(fileInput);
 		} else {
             alert('No image selected');
         }
     }
 
     // Step 3: read the photo and get src plus other data like size
-    const previewPhoto = (fileInput) => {
-        const reader = new FileReader();
-        const file = fileInput.files[0]; // I guess multi-select upload is special, I tried it doesn't work with current code
+    const previewPhotos = async (fileInput) => {
+        const files = fileInput.files; // I guess multi-select upload is special, I tried it doesn't work with current code
+        const filesLength = files.length;
 
-        reader.onload = function (e) {
-            setLoadedPhotos(loadedPhotos.concat({
+        const base64s = await fileListToBase64(files);
+
+        const newLoadedPhotos = [];
+
+        const maxFileSize = 16_000_000;
+
+        for (let i = 0; i < filesLength; i++) {
+            const currentFile = files[i];
+
+            if (currentFile.size >= maxFileSize) {
+                alert("Selected file \"" + currentFile.name + "\" is too large, must be smaller than 16mb");
+                continue;
+            }
+
+            newLoadedPhotos.push({
                 addressId: props.location.state.addressId,
-                fileName: file.name,
-                src: e.target.result,
+                fileName: currentFile.name,
+                src: base64s[i],
                 thumbanil_src: "",
                 meta: {
-                    "name": file.name,
-                    "size": file.size
+                    name: currentFile.name,
+                    size: currentFile.size
                 }
-            }));
+            });
         }
 
-        reader.readAsDataURL(file);
+        setLoadedPhotos(loadedPhotos.concat(newLoadedPhotos));
     }
 
     // Step 4: this runs anytime the page loads but when photos are available they will get rendered as <img />
@@ -219,7 +257,7 @@ const AddTag = (props) => {
         if (props.offlineStorage && props.location.state.tagInfoId) {
             getEventId(props.offlineStorage, props.location.state.tagInfoId);
         }
-    }, []);
+    }, [props.location.state.tagInfoId, props.offlineStorage]);
 
     // Step 1: Click on file input when clicking on Use Camera button
     useEffect(() => {
@@ -251,7 +289,7 @@ const AddTag = (props) => {
     return (
         <>
             <div className="tagging-tracker__add-tag move-bottom-navbar-down">
-                <input type="file" ref={fileInput} name="image" onChange={ () => { cameraCallback(fileInput.current) } } id="add-tag-file-input" />
+                <input type="file" ref={fileInput} name="image" onChange={ () => { cameraCallback(fileInput.current) } } id="add-tag-file-input" multiple />
                 { renderPhotoPreviews() }
             </div>
             <BottomNavbar
