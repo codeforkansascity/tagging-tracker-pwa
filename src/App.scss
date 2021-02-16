@@ -37,6 +37,10 @@
 	input {
 		font-family: inherit;
 	}
+
+	&.safari-mod{
+		height: calc(100vh - 115px);
+	}
 }
 
 .tagging-tracker__body {

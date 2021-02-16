@@ -156,6 +156,32 @@ const App = () => {
 		}
 
 		checkForNewVersion();
+
+		window.addEventListener('load', () => {
+			const ttBody = document.querySelector('.tagging-tracker');
+
+			// I'm aware shouldn't try to detect user agent due to unreliability
+			// this is tough to meet all the criteria
+			// iOS PWA doesn't have the bottom Safari bar but the browser does
+			// desktop doesn't include the url bar in its height
+			// mobile Android includes the url bar, standalone Android needs full height unlike Safari
+			// https://stackoverflow.com/questions/7944460/detect-safari-browser
+
+			const isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+               navigator.userAgent &&
+               navigator.userAgent.indexOf('CriOS') == -1 &&
+               navigator.userAgent.indexOf('FxiOS') == -1;
+
+			if (
+				!ttBody.classList.contains('safari-mod')
+				&& isSafari
+				&& !(navigator.standalone === true || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches))
+			) {
+				ttBody.classList = ttBody.classList + ' safari-mod';
+			}
+
+			window.removeEventListener('load', () => {});
+		});
 	});
 
 	return (
