@@ -1,9 +1,9 @@
 ### 02/22/2021
-- [ ] update how login token state is managed
+- [x] update how login token state is managed
     - [x] add it to Dexie db
         - [x] update Dexie db schema
         - [x] update state setters to populate/pull from this db field
-    - [ ] update client side token lifetime I think it's 15mins right now
+    - [x] update client side token lifetime I think it's 15mins right now
     - [x] have to update new workflow
         - on refresh/mount app checks for token in table/if one exists sets it
           it may be outdated
@@ -27,3 +27,7 @@ Anyway there are still functional changes to do and implementation... it does se
 What is not pretty is the version management of the `IndexedDB` store when the schema changes like it did now I believe you're supposed to push out a new version of the db. I have to check if that's factored into the manual "software update" (gear icon) which was supposed to be automatically happening but needed to dump more time into that eg. some kind of web worker/background task on the
 
 Have to think of some way to purge the DB on client side with their current app but new JS code comes down. Should be tied into software update.
+
+updated token lifetime
+
+not automatically forward http to https on api
