@@ -24,4 +24,6 @@ Overall this code is not great... I mean the functionality is there but structur
 
 Anyway there are still functional changes to do and implementation... it does seem like the most "user friend/less resistance way" are native apps.
 
-What is not pretty is the version management of the `IndexedDB` store when the schema changes like it did now I believe you're supposed to push out a new version of the db. I have to check if that's factored into the manual "software update" (gear icon) which was supposed to be automatically happening but needed to dump more time into that eg. some kind of web worker/background task on the PWA or possibly ping from a remote place to the phone.
+What is not pretty is the version management of the `IndexedDB` store when the schema changes like it did now I believe you're supposed to push out a new version of the db. I have to check if that's factored into the manual "software update" (gear icon) which was supposed to be automatically happening but needed to dump more time into that eg. some kind of web worker/background task on the
+
+Have to think of some way to purge the DB on client side with their current app but new JS code comes down. Should be tied into software update.
