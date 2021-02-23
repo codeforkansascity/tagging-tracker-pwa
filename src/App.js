@@ -21,8 +21,12 @@ import DeleteTag from './components/edit-tags/EditTags';
 import Events from './components/events/Events';
 import EventTags from './components/event-tags/EventTags';
 
+// yeah this is bad
+// this is here because the entire states below are wiped on app re-render at app level
+let prevToken;
+
 const App = () => {
-	const [token, setToken] = useState("");
+	const [token, setToken] = useState(prevToken);
 	const [searchedAddress, updateSearchedAddress] = useState("");
 	const [showAddressModal, setShowAddressModal] = useState(false);
 	const [appOnline, setAppOnline] = useState(true);
@@ -61,8 +65,57 @@ const App = () => {
 		updateSearchedAddress("");
 	}
 
-	const updateToken = (token) => {
-		setToken(token);
+	const getTokenFromStorage = (storage) => {
+		// I'll do one good one
+		storage
+			.tokens
+			.where('tokenId')
+			.equals(1)
+			.toArray()
+			.then((tokens) => {
+				if (tokens.length) {
+					prevToken = tokens[0]?.token; // should only be one, ooh fancy optional chaining
+					setToken(prevToken);
+				}
+			})
+			.catch((err) => {
+				alert('failed to get previous login, please login again'); // ehh bad handle
+			});
+	}
+
+	// this will just wipe whatever is in the db if it even exists
+	const updateToken = (storage, token) => {
+		const currentTokens = storage.tokens.where('tokenId').equals(1);
+		currentTokens
+			.count()
+			.then((count) => {
+				if (!count) {
+					storage.tokens.add({
+						tokenId: 1,
+						token
+					})
+					.then(() => {
+						setToken(token);
+					})
+					.catch(() => {
+						alert('failed to login'); // not true
+					});
+				} else {
+					storage.tokens.where('tokenId').equals(1).modify({ // chaining madness
+						token
+					})
+					.then(() => {
+						setToken(token);
+					})
+					.catch(() => {
+						alert('failed to login'); // aye caramba
+					});
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+				alert('failed to login'); // not true
+			});
 	}
 
 	const updateAppOnlineState = (event) => {
@@ -88,7 +141,8 @@ const App = () => {
 			events: "++,addressId,tagInfoId,tagIds,datetime",
 			tags: "++,fileName,addressId,eventId,meta,datetime,src,thumbnail_src",
 			ownerInfo: "++,addressId,formData",
-			tagInfo: "++,addressId,eventId,formData"
+			tagInfo: "++,addressId,eventId,formData",
+			tokens: "++,tokenId,token" // this implementation doesn't make sense eg. only need one but it's a persistent local store
 		});
 		setOfflineStorage(db);
 	};
@@ -173,7 +227,8 @@ const App = () => {
                navigator.userAgent.indexOf('FxiOS') == -1;
 
 			if (
-				!ttBody.classList.contains('safari-mod')
+				ttBody
+				&& !ttBody.classList.contains('safari-mod')
 				&& isSafari
 				&& !(navigator.standalone === true || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches))
 			) {
@@ -184,11 +239,19 @@ const App = () => {
 		});
 	});
 
+	// try to get old token when local storage loads
+	useEffect(() => {
+		if (offlineStorage) {
+			getTokenFromStorage(offlineStorage);
+		}
+	}, [offlineStorage]);
+
 	return (
 		<div className="tagging-tracker">
 			<Router basename={ baseName }>
 				<Route component={ (props) =>
-					<Navbar {...props}
+					<Navbar
+						{...props}
 						baseDir={ baseName }
 						searchAddress={searchAddress}
 						searchedAddress={searchedAddress}
@@ -213,7 +276,11 @@ const App = () => {
 							component={ (props) =>
 								token
 									? <Redirect to="/addresses" />
-									: <Login {...props} updateToken={updateToken} token={token} />
+									: <Login
+										{...props}
+										offlineStorage={offlineStorage}
+										updateToken={updateToken}
+										token={token} />
 						} />
 						<Route
 							path={"/view-address"}

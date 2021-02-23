@@ -1,5 +1,8 @@
 ### Update
-This is outdated, also moving to React Native now
+This is outdated, also moving to React Native now(would like to)
+- RN means have to figure out how to deploy app to app store eg. costs $100/yr/need acct, etc...
+  - also... minor cross platform support though primary target is iOS
+  - mainly my lack of experience in RN/time sink to get up to speed
 
 ### Most recent
 - [ ] investigate warning wall "Dexie delete local database blocked" when logging out, purges local cache

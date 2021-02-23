@@ -32,7 +32,7 @@ const Login = (props) => {
         })
         .then((res) => {
             if (typeof res.data.token !== "undefined" && res.data.token) {
-                props.updateToken(res.data.token);
+                props.updateToken(props.offlineStorage, res.data.token);
             }
         })
         .catch((err) => {
