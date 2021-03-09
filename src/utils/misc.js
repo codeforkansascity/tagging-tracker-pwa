@@ -5,13 +5,17 @@
 // initially I saw that when you scroll down the Safari bottom menu goes away/comes back scrolling up
 // but it seems if you don't have overflow/shorter in height then the bottom navbar will be ontop of the Safari bottom menu
 // I guess Mac has this issue too? That's what I see in Sauce Labs simulator
-export const checkIOS = () => {
+export const checkIOS = (returnString) => {
     const iOS = /(iPhone|iPod|iPhone Simulator|iPod Simulator|iPad|iPad Simulator|Macintosh)/g.test(navigator.userAgent);
 
     if (iOS) {
-        document.querySelector('.tagging-tracker__body').classList = 'tagging-tracker__body'; // clear state
-        document.querySelector('.tagging-tracker__bottom-navbar').classList.add('iOS');
-        document.querySelector('.tagging-tracker__body').classList.add('iOS');
+        if (returnString) {
+            return "iOS";
+        } else {
+            document.querySelector('.tagging-tracker__body').classList = 'tagging-tracker__body'; // clear state
+            document.querySelector('.tagging-tracker__bottom-navbar').classList.add('iOS');
+            document.querySelector('.tagging-tracker__body').classList.add('iOS');
+        }
 
         if (window.location.href.indexOf('events') !== -1 || window.location.href.indexOf('event-tags') !== -1) {
             document.querySelector('.tagging-tracker__body').classList.add('less');
@@ -23,6 +27,10 @@ export const checkIOS = () => {
 
         if (window.location.href.indexOf('add-tag') !== -1) {
             document.querySelector('.tagging-tracker__body').classList.add('add-tag');
+        }
+    } else {
+        if (returnString) {
+            return "";
         }
     }
 }

@@ -94,7 +94,7 @@
 	&.iOS {
 		.tag-info-field-row.full-column-left {
 			input {
-				flex: auto;
+				flex: auto !important; // ahh yes the good stuff
 			}
 
 			label {

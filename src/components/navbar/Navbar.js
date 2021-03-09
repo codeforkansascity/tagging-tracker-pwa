@@ -4,7 +4,7 @@ import './Navbar.scss';
 import { deleteAddress } from '../../utils/delete';
 
 import backArrow from './../../assets/icons/svgs/chevron-blue.svg'; // rotated by CSS
-import { truncateText } from '../../utils/misc';
+import { checkIOS, truncateText } from '../../utils/misc';
 
 const Navbar = (props) => {
     const searchAddressInput = useRef(null);
@@ -249,6 +249,11 @@ const Navbar = (props) => {
             deleteAddressCallback();
         }
     }, [deletingAddress]);
+
+    // disabling scaling need to test on iOS
+    useEffect(() => {
+        checkIOS();
+    });
 
     return(
         <div className="tagging-tracker__navbar">

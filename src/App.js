@@ -20,6 +20,7 @@ import AddTag from './components/add-tag/AddTag';
 import DeleteTag from './components/edit-tags/EditTags';
 import Events from './components/events/Events';
 import EventTags from './components/event-tags/EventTags';
+import { checkIOS } from './utils/misc';
 
 // yeah this is bad
 // this is here because the entire states below are wiped on app re-render at app level
@@ -268,7 +269,7 @@ const App = () => {
 						deleteEventsMode={deleteEventsMode}
 						setDeleteEventsMode={setDeleteEventsMode} />
 				}/> {/* put this break here since it confused me having it against the line before */}
-				<div className={ bodyClass }>
+				<div className={ `${bodyClass} ${checkIOS(true)}` }>
 					<Switch>
 						<Route
 							exact
