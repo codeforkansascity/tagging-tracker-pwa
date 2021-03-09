@@ -1,3 +1,15 @@
+Investigate some mechanism to check remote side for changes.
+Somehow ping device to say "update available"
+
+### 03/08/2021
+Noting problems in Safari
+
+- [ ] does the PWA actually install or is it just a web bookmark?
+- [x] event editor
+  - [x] text overlapping bullets for Type of property, vacant property, land bank property
+- owner information
+  - is building survey an input or no? don't think so
+
 ### 02/22/2021
 - [x] update how login token state is managed
     - [x] add it to Dexie db

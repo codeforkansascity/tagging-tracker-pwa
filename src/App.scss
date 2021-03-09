@@ -89,4 +89,13 @@
 			max-height: calc(100% - 45px); // 235 alternate
 		}
 	}
+
+	// shouldn't be here but not sure how to apply css in child from a parent class
+	&.iOS {
+		.tag-info-field-row.full-column-left {
+			label {
+				padding-left: 0.75em;
+			}
+		}
+	}
 }
