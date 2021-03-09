@@ -93,8 +93,12 @@
 	// shouldn't be here but not sure how to apply css in child from a parent class
 	&.iOS {
 		.tag-info-field-row.full-column-left {
+			input {
+				flex: auto;
+			}
+
 			label {
-				padding-left: 0.75em;
+				width: calc(100% - 1em);
 			}
 		}
 	}
